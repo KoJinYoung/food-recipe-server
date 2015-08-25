@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Edit Page</title>
+</head>
+<body>
+    <h1>Edit Page</h1>
+    <hr />
+    <form method="post">
+        <fieldset>
+            <legend>Edit Data</legend>
+            <table>
+                <tr>
+                    <td><label>ID</label></td>
+                    <td><input type="text" name="u_id" value="<%= data.u_id %>" disabled/></td>
+                </tr>
+                <tr>
+                    <td><label>facebook</label></td>
+                    <td><input type="text" name="facebook" value="<%= data.facebook %>"/></td>
+                </tr>
+                <tr>
+                    <td><label>kakao</label></td>
+                    <td><input type="text" name="kakao"  value="<%= data.kakao %>"/></td>
+                </tr>
+                <tr>
+                    <td><label>naver</label></td>
+                    <td><input type="text" name="naver"  value="<%= data.naver %>"/></td>
+                </tr>
+                <tr>
+                    <td><label>create_time</label></td>
+                    <td><input type="text" name="create_time"  value="<%= data.create_time %>"/></td>
+                </tr>
+                <tr>
+                    <td><label>update_time</label></td>
+                    <td><input type="text" name="update_time"  value="<%= data.update_time %>"/></td>
+                </tr>
+            </table>
+            <input type="submit" />
+        </fieldset>
+    </form>
+</body>
+</html>

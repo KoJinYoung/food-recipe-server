@@ -1,10 +1,9 @@
-var server = require("./server");
-var router = require("./router");
-var requestHandlers = require("./requestHandlers");
+var express = require('express');
+var router = express.Router();
 
-var handle = {};
-handle["/"] = requestHandlers.start;
-handle["/start"] = requestHandlers.start;
-handle["/upload"] = requestHandlers.upload;
+/* GET home page. */
+router.get('/', function(req, res, next) {
+  res.render('index', { title: 'Express' });
+});
 
-server.start(router.route, handle);
+module.exports = router;

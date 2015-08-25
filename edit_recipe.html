@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Edit Page</title>
+</head>
+<body>
+    <h1>Edit Page</h1>
+    <hr />
+    <form method="post">
+        <fieldset>
+            <legend>Edit Data</legend>
+            <table>
+                <tr>
+                    <td><label>r_id</label></td>
+                    <td><input type="text" name="r_id" value="<%= data.r_id %>" disabled/></td>
+                </tr>
+                <tr>
+                    <td><label>r_name</label></td>
+                    <td><input type="text" name="r_name" value="<%= data.r_name %>"/></td>
+                </tr>
+                <tr>
+                    <td><label>r_contents</label></td>
+                    <td><input type="text" name="r_contents"  value="<%= data.r_contents %>"/></td>
+                </tr>
+                <tr>
+                    <td><label>USER_u_id</label></td>
+                    <td><input type="text" name="USER_u_id"  value="<%= data.USER_u_id %>" disabled/></td>
+                </tr>
+            </table>
+            <input type="submit" />
+        </fieldset>
+    </form>
+</body>
+</html>
