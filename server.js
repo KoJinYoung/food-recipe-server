@@ -1,4 +1,3 @@
-var thrift = require('thrift');
 var http = require('http');
 http.createServer(function(req, res){
 	res.writeHead(200);

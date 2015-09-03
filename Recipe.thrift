@@ -1,4 +1,4 @@
-mespace java com.foodRecipe.core.thrift.model.recipe
+namespace java com.foodRecipe.core.thrift.model.recipe
 namespace cocoa foodRecipe
 
 ////////////////////////////////////////////////////////////////////////
@@ -16,6 +16,18 @@ enum Level{
 	HARD = 3
 }
 
+struct IngredientInfo{
+        1:      optional string name;
+        2:      optional string id;
+}
+
+struct RecipeInfo{
+	1: 	optional int calories;
+	2: 	optional Level level;
+	3:	optional int cookTime;
+	4:	optional list<IngredientInfo>	ingredient;
+}
+
 struct Recipe{
 	1:	optional int recipeId;
 	2:	optional int writerId;
@@ -27,14 +39,6 @@ struct Recipe{
 	8:	optional RecipeInfo	recipeInfo;
 	9:	optional bool recipeLiked;
 }
-
-struct RecipeInfo{
-	1:	optional int calories;
-	2:	optional Level level;
-	3:	optional int cookTime;
-	4:	optional <list> ingredient;
-}
-
 enum RecipeExCode{
 	INVALID = 0,
 	SERVER_ERROR = 1,
