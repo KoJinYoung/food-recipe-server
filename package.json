@@ -1,14 +1,11 @@
 {
-	"name": "sql_test",
-	"decription" : "sql test ver",
-	"version": "0.0.1",
-	"private": true,
-
-	"dependencies": {
-		"express": "~4.x",
-		"mysql": "~2.8.0",
-		"body-parser":"~1.13.3",
-		"ejs":"~2.3.3",
-		
-	}
+  "name": "Makcipe_server",
+  "decription": "Makcipe server with thrift",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "^4.13.3",
+    "mysql": "^2.9.0",
+    "thrift": "^0.9.2"
+  }
 }

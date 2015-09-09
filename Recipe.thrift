@@ -1,5 +1,5 @@
 namespace java com.foodRecipe.core.thrift.model.recipe
-namespace cocoa foodRecipe
+namespace cocoa makcipeAPI
 
 ////////////////////////////////////////////////////////////////////////
 //
@@ -7,7 +7,6 @@ namespace cocoa foodRecipe
 
 typedef i64 long
 typedef i32 int
-
 
 
 enum Level{

@@ -1,24 +1,24 @@
 var mysql = require('mysql');
 var connection = mysql.createConnection({
+		// in lab
 		host : "localhost",
 		user : "root",
 		password : "ziny5601!",
 		database : "a"
+
+		// in home
+		/*
+		host : "173.194.106.144",
+		user : "ziny",
+		password : "akrTj=100",
+		database : ""
+		*/
 	});
 
-closeMysql = function(){
+exports.closeMysql = function(){
 	console.log("Disconnecting...");
 	connection.end();
-	console.log("complete!");
-}
-
-getAll = function(table, cb){
-	connection.query('SELECT * FROM ' + table, function(err, result, fields){
-		if(err) console.log(err);
-		else	cb(result);
-	
-	});
-
+	console.log("Disconnecting complete!");
 }
 
 exports.setMysql = function(){
@@ -26,12 +26,27 @@ exports.setMysql = function(){
 		if(err)	console.log("Problem with Mysql " + err);
 		else	console.log("Connected with Database");
 	});
-
-	var table = 'student';
-	getAll(table, function(data){
-		console.log(data);
-	})
-	
-	closeMysql();
 }
 
+
+// search
+exports.getAll = function(table, cb){
+	connection.query('SELECT * FROM ' + table, function(err, result, fields){
+		if(err){
+			console.log(err);
+			cb(err);
+		}
+		
+		console.log('query execution complete!!');
+		cb(result);
+	});
+
+	console.log('callback database comeplete!!')
+}
+
+
+
+
+// insert
+
+// remove

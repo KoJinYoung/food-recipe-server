@@ -10,20 +10,128 @@ var Recipe_ttypes = require('./Recipe_types')
 var ttypes = require('./RecipeAPI_types');
 //HELPER FUNCTIONS AND STRUCTURES
 
-RecipeAPI_RecipeSearch_args = function(args) {
-  this.token = null;
-  this.name = null;
-  if (args) {
-    if (args.token !== undefined) {
-      this.token = args.token;
+RecipeAPI_setMysql_args = function(args) {
+};
+RecipeAPI_setMysql_args.prototype = {};
+RecipeAPI_setMysql_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
     }
-    if (args.name !== undefined) {
-      this.name = args.name;
+    input.skip(ftype);
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+RecipeAPI_setMysql_args.prototype.write = function(output) {
+  output.writeStructBegin('RecipeAPI_setMysql_args');
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+RecipeAPI_setMysql_result = function(args) {
+};
+RecipeAPI_setMysql_result.prototype = {};
+RecipeAPI_setMysql_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    input.skip(ftype);
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+RecipeAPI_setMysql_result.prototype.write = function(output) {
+  output.writeStructBegin('RecipeAPI_setMysql_result');
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+RecipeAPI_closeMysql_args = function(args) {
+};
+RecipeAPI_closeMysql_args.prototype = {};
+RecipeAPI_closeMysql_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    input.skip(ftype);
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+RecipeAPI_closeMysql_args.prototype.write = function(output) {
+  output.writeStructBegin('RecipeAPI_closeMysql_args');
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+RecipeAPI_closeMysql_result = function(args) {
+};
+RecipeAPI_closeMysql_result.prototype = {};
+RecipeAPI_closeMysql_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    input.skip(ftype);
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+RecipeAPI_closeMysql_result.prototype.write = function(output) {
+  output.writeStructBegin('RecipeAPI_closeMysql_result');
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+RecipeAPI_getAll_args = function(args) {
+  this.table = null;
+  if (args) {
+    if (args.table !== undefined) {
+      this.table = args.table;
     }
   }
 };
-RecipeAPI_RecipeSearch_args.prototype = {};
-RecipeAPI_RecipeSearch_args.prototype.read = function(input) {
+RecipeAPI_getAll_args.prototype = {};
+RecipeAPI_getAll_args.prototype.read = function(input) {
   input.readStructBegin();
   while (true)
   {
@@ -38,18 +146,14 @@ RecipeAPI_RecipeSearch_args.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.STRING) {
-        this.token = input.readString();
+        this.table = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
-      case 2:
-      if (ftype == Thrift.Type.STRING) {
-        this.name = input.readString();
-      } else {
+      case 0:
         input.skip(ftype);
-      }
-      break;
+        break;
       default:
         input.skip(ftype);
     }
@@ -59,16 +163,11 @@ RecipeAPI_RecipeSearch_args.prototype.read = function(input) {
   return;
 };
 
-RecipeAPI_RecipeSearch_args.prototype.write = function(output) {
-  output.writeStructBegin('RecipeAPI_RecipeSearch_args');
-  if (this.token !== null && this.token !== undefined) {
-    output.writeFieldBegin('token', Thrift.Type.STRING, 1);
-    output.writeString(this.token);
-    output.writeFieldEnd();
-  }
-  if (this.name !== null && this.name !== undefined) {
-    output.writeFieldBegin('name', Thrift.Type.STRING, 2);
-    output.writeString(this.name);
+RecipeAPI_getAll_args.prototype.write = function(output) {
+  output.writeStructBegin('RecipeAPI_getAll_args');
+  if (this.table !== null && this.table !== undefined) {
+    output.writeFieldBegin('table', Thrift.Type.STRING, 1);
+    output.writeString(this.table);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -76,10 +175,20 @@ RecipeAPI_RecipeSearch_args.prototype.write = function(output) {
   return;
 };
 
-RecipeAPI_RecipeSearch_result = function(args) {
+RecipeAPI_getAll_result = function(args) {
+  this.uex = null;
+  if (args instanceof Recipe_ttypes.RecipeException) {
+    this.uex = args;
+    return;
+  }
+  if (args) {
+    if (args.uex !== undefined) {
+      this.uex = args.uex;
+    }
+  }
 };
-RecipeAPI_RecipeSearch_result.prototype = {};
-RecipeAPI_RecipeSearch_result.prototype.read = function(input) {
+RecipeAPI_getAll_result.prototype = {};
+RecipeAPI_getAll_result.prototype.read = function(input) {
   input.readStructBegin();
   while (true)
   {
@@ -90,71 +199,35 @@ RecipeAPI_RecipeSearch_result.prototype.read = function(input) {
     if (ftype == Thrift.Type.STOP) {
       break;
     }
-    input.skip(ftype);
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
-};
-
-RecipeAPI_RecipeSearch_result.prototype.write = function(output) {
-  output.writeStructBegin('RecipeAPI_RecipeSearch_result');
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
-};
-
-RecipeAPI_REcipeAllSearch_args = function(args) {
-};
-RecipeAPI_REcipeAllSearch_args.prototype = {};
-RecipeAPI_REcipeAllSearch_args.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true)
-  {
-    var ret = input.readFieldBegin();
-    var fname = ret.fname;
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.uex = new Recipe_ttypes.RecipeException();
+        this.uex.read(input);
+      } else {
+        input.skip(ftype);
+      }
       break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
     }
-    input.skip(ftype);
     input.readFieldEnd();
   }
   input.readStructEnd();
   return;
 };
 
-RecipeAPI_REcipeAllSearch_args.prototype.write = function(output) {
-  output.writeStructBegin('RecipeAPI_REcipeAllSearch_args');
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
-};
-
-RecipeAPI_REcipeAllSearch_result = function(args) {
-};
-RecipeAPI_REcipeAllSearch_result.prototype = {};
-RecipeAPI_REcipeAllSearch_result.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true)
-  {
-    var ret = input.readFieldBegin();
-    var fname = ret.fname;
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
-      break;
-    }
-    input.skip(ftype);
-    input.readFieldEnd();
+RecipeAPI_getAll_result.prototype.write = function(output) {
+  output.writeStructBegin('RecipeAPI_getAll_result');
+  if (this.uex !== null && this.uex !== undefined) {
+    output.writeFieldBegin('uex', Thrift.Type.STRUCT, 1);
+    this.uex.write(output);
+    output.writeFieldEnd();
   }
-  input.readStructEnd();
-  return;
-};
-
-RecipeAPI_REcipeAllSearch_result.prototype.write = function(output) {
-  output.writeStructBegin('RecipeAPI_REcipeAllSearch_result');
   output.writeFieldStop();
   output.writeStructEnd();
   return;
@@ -167,24 +240,22 @@ RecipeAPIClient = exports.Client = function(output, pClass) {
     this._reqs = {};
 };
 RecipeAPIClient.prototype = {};
-RecipeAPIClient.prototype.RecipeSearch = function(token, name, callback) {
+RecipeAPIClient.prototype.setMysql = function(callback) {
   this.seqid += 1;
   this._reqs[this.seqid] = callback;
-  this.send_RecipeSearch(token, name);
+  this.send_setMysql();
 };
 
-RecipeAPIClient.prototype.send_RecipeSearch = function(token, name) {
+RecipeAPIClient.prototype.send_setMysql = function() {
   var output = new this.pClass(this.output);
-  output.writeMessageBegin('RecipeSearch', Thrift.MessageType.CALL, this.seqid);
-  var args = new RecipeAPI_RecipeSearch_args();
-  args.token = token;
-  args.name = name;
+  output.writeMessageBegin('setMysql', Thrift.MessageType.CALL, this.seqid);
+  var args = new RecipeAPI_setMysql_args();
   args.write(output);
   output.writeMessageEnd();
   return this.output.flush();
 };
 
-RecipeAPIClient.prototype.recv_RecipeSearch = function(input,mtype,rseqid) {
+RecipeAPIClient.prototype.recv_setMysql = function(input,mtype,rseqid) {
   var callback = this._reqs[rseqid] || function() {};
   delete this._reqs[rseqid];
   if (mtype == Thrift.MessageType.EXCEPTION) {
@@ -193,28 +264,28 @@ RecipeAPIClient.prototype.recv_RecipeSearch = function(input,mtype,rseqid) {
     input.readMessageEnd();
     return callback(x);
   }
-  var result = new RecipeAPI_RecipeSearch_result();
+  var result = new RecipeAPI_setMysql_result();
   result.read(input);
   input.readMessageEnd();
 
   callback(null)
 };
-RecipeAPIClient.prototype.REcipeAllSearch = function(callback) {
+RecipeAPIClient.prototype.closeMysql = function(callback) {
   this.seqid += 1;
   this._reqs[this.seqid] = callback;
-  this.send_REcipeAllSearch();
+  this.send_closeMysql();
 };
 
-RecipeAPIClient.prototype.send_REcipeAllSearch = function() {
+RecipeAPIClient.prototype.send_closeMysql = function() {
   var output = new this.pClass(this.output);
-  output.writeMessageBegin('REcipeAllSearch', Thrift.MessageType.CALL, this.seqid);
-  var args = new RecipeAPI_REcipeAllSearch_args();
+  output.writeMessageBegin('closeMysql', Thrift.MessageType.CALL, this.seqid);
+  var args = new RecipeAPI_closeMysql_args();
   args.write(output);
   output.writeMessageEnd();
   return this.output.flush();
 };
 
-RecipeAPIClient.prototype.recv_REcipeAllSearch = function(input,mtype,rseqid) {
+RecipeAPIClient.prototype.recv_closeMysql = function(input,mtype,rseqid) {
   var callback = this._reqs[rseqid] || function() {};
   delete this._reqs[rseqid];
   if (mtype == Thrift.MessageType.EXCEPTION) {
@@ -223,10 +294,44 @@ RecipeAPIClient.prototype.recv_REcipeAllSearch = function(input,mtype,rseqid) {
     input.readMessageEnd();
     return callback(x);
   }
-  var result = new RecipeAPI_REcipeAllSearch_result();
+  var result = new RecipeAPI_closeMysql_result();
   result.read(input);
   input.readMessageEnd();
 
+  callback(null)
+};
+RecipeAPIClient.prototype.getAll = function(table, callback) {
+  this.seqid += 1;
+  this._reqs[this.seqid] = callback;
+  this.send_getAll(table);
+};
+
+RecipeAPIClient.prototype.send_getAll = function(table) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('getAll', Thrift.MessageType.CALL, this.seqid);
+  var args = new RecipeAPI_getAll_args();
+  args.table = table;
+  args.write(output);
+  output.writeMessageEnd();
+  return this.output.flush();
+};
+
+RecipeAPIClient.prototype.recv_getAll = function(input,mtype,rseqid) {
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
+  }
+  var result = new RecipeAPI_getAll_result();
+  result.read(input);
+  input.readMessageEnd();
+
+  if (null !== result.uex) {
+    return callback(result.uex);
+  }
   callback(null)
 };
 RecipeAPIProcessor = exports.Processor = function(handler) {
@@ -247,26 +352,39 @@ RecipeAPIProcessor.prototype.process = function(input, output) {
   }
 }
 
-RecipeAPIProcessor.prototype.process_RecipeSearch = function(seqid, input, output) {
-  var args = new RecipeAPI_RecipeSearch_args();
+RecipeAPIProcessor.prototype.process_setMysql = function(seqid, input, output) {
+  var args = new RecipeAPI_setMysql_args();
   args.read(input);
   input.readMessageEnd();
-  this._handler.RecipeSearch(args.token, args.name, function (err, result) {
-    var result = new RecipeAPI_RecipeSearch_result((err != null ? err : {success: result}));
-    output.writeMessageBegin("RecipeSearch", Thrift.MessageType.REPLY, seqid);
+  this._handler.setMysql(function (err, result) {
+    var result = new RecipeAPI_setMysql_result((err != null ? err : {success: result}));
+    output.writeMessageBegin("setMysql", Thrift.MessageType.REPLY, seqid);
     result.write(output);
     output.writeMessageEnd();
     output.flush();
   })
 }
 
-RecipeAPIProcessor.prototype.process_REcipeAllSearch = function(seqid, input, output) {
-  var args = new RecipeAPI_REcipeAllSearch_args();
+RecipeAPIProcessor.prototype.process_closeMysql = function(seqid, input, output) {
+  var args = new RecipeAPI_closeMysql_args();
   args.read(input);
   input.readMessageEnd();
-  this._handler.REcipeAllSearch(function (err, result) {
-    var result = new RecipeAPI_REcipeAllSearch_result((err != null ? err : {success: result}));
-    output.writeMessageBegin("REcipeAllSearch", Thrift.MessageType.REPLY, seqid);
+  this._handler.closeMysql(function (err, result) {
+    var result = new RecipeAPI_closeMysql_result((err != null ? err : {success: result}));
+    output.writeMessageBegin("closeMysql", Thrift.MessageType.REPLY, seqid);
+    result.write(output);
+    output.writeMessageEnd();
+    output.flush();
+  })
+}
+
+RecipeAPIProcessor.prototype.process_getAll = function(seqid, input, output) {
+  var args = new RecipeAPI_getAll_args();
+  args.read(input);
+  input.readMessageEnd();
+  this._handler.getAll(args.table, function (err, result) {
+    var result = new RecipeAPI_getAll_result((err != null ? err : {success: result}));
+    output.writeMessageBegin("getAll", Thrift.MessageType.REPLY, seqid);
     result.write(output);
     output.writeMessageEnd();
     output.flush();
