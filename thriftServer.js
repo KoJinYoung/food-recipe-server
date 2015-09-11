@@ -5,6 +5,7 @@ var ttypes = require('./gen-nodejs/RecipeAPI_types');
 
 var data = [];
 
+
 var mysql = require('mysql');
 var connection = mysql.createConnection({
 		// in lab
@@ -22,8 +23,25 @@ var connection = mysql.createConnection({
 		
 });
 
-function make_Recc_list(connection){
+function db_connect(){
+	connection.connect(function(err){
+		if(err)	console.log('connection err!');
+		else	console.log('connection complete!');
+	})
 }
+
+function make_Recc_list(){
+	Recipe = new ttypes.Recipe();
+}
+
+function make_Subc_list(){
+	Recipe = new ttypes.Recipe();
+}
+
+function make_norm_list(rid){
+	Recipe = new ttypes.Recipe();
+}
+
 
 var server = thrift.createServer(RecipeAPI, {
 // make function
@@ -69,18 +87,16 @@ var server = thrift.createServer(RecipeAPI, {
 	},
 
 	make_All_Recipe_list:	function(err){
-		connection.connect(function(err){
-			if(err)	console.log('connection err occured in make_All_Recipe_list!');
-			else	console.log('connection complete!');
-		})
-		connection.query('
-	
+		db_connect();
 	},
 	make_Recc_Recipe_list:	function(err){
+		db_connect();
 	},
 	make_Sub_Recipe_list:	function(err){
+		db_connect();
 	},
 	make_norm_Recipe_list:	function(err){
+		db_connect();
 	}
 	 
 },{});
