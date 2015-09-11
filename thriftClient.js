@@ -19,18 +19,17 @@ connection.on('error', function(err){
 
 var client = thrift.createClient(RecipeAPI, connection);
 
-client.setMysql(function(err, response){
+client.setMysql(function(response){
 	console.log('<client setMytsql>');
 });
 
 
-client.getAll('student', function(err, result){
-	if(err)	console.log('err : ' + err);
+client.getAll('student', function(response){
 //	console.log(result[0].no + " / " + result[0].name + " / " + result[0].grade);
-	console.log(result);
+	console.log(response);
 });
 
-client.closeMysql(function(err, response){
+client.closeMysql(function(response){
 	console.log('<client closeMysql>');
 });
 

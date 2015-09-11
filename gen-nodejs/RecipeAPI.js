@@ -176,14 +176,10 @@ RecipeAPI_getAll_args.prototype.write = function(output) {
 };
 
 RecipeAPI_getAll_result = function(args) {
-  this.uex = null;
-  if (args instanceof Recipe_ttypes.RecipeException) {
-    this.uex = args;
-    return;
-  }
+  this.success = null;
   if (args) {
-    if (args.uex !== undefined) {
-      this.uex = args.uex;
+    if (args.success !== undefined) {
+      this.success = args.success;
     }
   }
 };
@@ -201,10 +197,9 @@ RecipeAPI_getAll_result.prototype.read = function(input) {
     }
     switch (fid)
     {
-      case 1:
-      if (ftype == Thrift.Type.STRUCT) {
-        this.uex = new Recipe_ttypes.RecipeException();
-        this.uex.read(input);
+      case 0:
+      if (ftype == Thrift.Type.STRING) {
+        this.success = input.readString();
       } else {
         input.skip(ftype);
       }
@@ -223,9 +218,9 @@ RecipeAPI_getAll_result.prototype.read = function(input) {
 
 RecipeAPI_getAll_result.prototype.write = function(output) {
   output.writeStructBegin('RecipeAPI_getAll_result');
-  if (this.uex !== null && this.uex !== undefined) {
-    output.writeFieldBegin('uex', Thrift.Type.STRUCT, 1);
-    this.uex.write(output);
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.STRING, 0);
+    output.writeString(this.success);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -329,10 +324,10 @@ RecipeAPIClient.prototype.recv_getAll = function(input,mtype,rseqid) {
   result.read(input);
   input.readMessageEnd();
 
-  if (null !== result.uex) {
-    return callback(result.uex);
+  if (null !== result.success) {
+    return callback(null, result.success);
   }
-  callback(null)
+  return callback('getAll failed: unknown result');
 };
 RecipeAPIProcessor = exports.Processor = function(handler) {
   this._handler = handler

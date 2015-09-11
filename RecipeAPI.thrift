@@ -14,7 +14,7 @@ service RecipeAPI{
 
 
 	//search
-	void getAll(1: string table) throws (1: Recipe.RecipeException uex);
+	string getAll(1: string table)
 
 	//insert
 

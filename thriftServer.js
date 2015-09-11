@@ -29,30 +29,31 @@ var server = thrift.createServer(RecipeAPI, {
 			if(err)	console.log('Connection error!');
 			else	console.log('Connection complete!');
 		});
-
 		cb(null);
 	},
 
 	closeMysql: function(cb){
 		connection.end();
 		console.log('Disonnection complete!');
-
 		cb(null);
 	},
 
 	// search
 	getAll: function(table, cb){
-		connection.query('SELECT * FROM ' + table, function(err, result, fields){
+		connection.query('SELECT * FROM ' + table, function(err, result){
 			if(err){
 				console.log(err);
 				cb(err);
 			}
+
 			console.log('in server query');
 			console.log(result);
 			console.log('query execution complete!!');
-	//		cb(null, result);
+			
+			data += JSON.stringify(result);
+			console.log(data);
 		});
-		cb(null, "fuck!");
+		cb(data);
 	}
 },{});
 
