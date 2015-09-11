@@ -20,7 +20,10 @@ var connection = mysql.createConnection({
 		password : "akrTj=100",
 		database : ""
 		
-	});
+});
+
+function make_Recc_list(connection){
+}
 
 var server = thrift.createServer(RecipeAPI, {
 // make function
@@ -63,6 +66,21 @@ var server = thrift.createServer(RecipeAPI, {
 
 		connection.end();
 		console.log('disconnection complete');
+	},
+
+	make_All_Recipe_list:	function(err){
+		connection.connect(function(err){
+			if(err)	console.log('connection err occured in make_All_Recipe_list!');
+			else	console.log('connection complete!');
+		})
+		connection.query('
+	
+	},
+	make_Recc_Recipe_list:	function(err){
+	},
+	make_Sub_Recipe_list:	function(err){
+	},
+	make_norm_Recipe_list:	function(err){
 	}
 	 
 },{});

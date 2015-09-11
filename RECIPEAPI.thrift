@@ -23,6 +23,4 @@ service RecipeAPI{
 	list<RECIPE.Recipe>	make_Subc_Recipe_list();
 	list<RECIPE.Recipe>	make_norm_Recipe_list(1: string r_id);
 
-
-
 }
