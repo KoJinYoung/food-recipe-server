@@ -40,3 +40,6 @@ env_variables:
 handlers:
 - url: .*
   script: server.js
+
+- url: .*
+  script: thriftServer.js

@@ -8,8 +8,14 @@ namespace cocoa makcipeAPI
 typedef i64 long
 typedef i32 int
 
+enum RECIPETYPE{
+	NONE = 0,
+	RECOMM = 1,
+	SUBSC = 2,
+	LATELY = 3
+}
 
-enum Level{
+enum LEVEL{
 	EASY = 1,
 	NORMAL = 2,
 	HARD = 3
@@ -22,7 +28,7 @@ struct IngredientInfo{
 
 struct RecipeInfo{
 	1: 	optional int calories;
-	2: 	optional Level level;
+	2: 	optional LEVEL level;
 	3:	optional int cookTime;
 	4:	optional list<IngredientInfo>	ingredient;
 }
@@ -37,7 +43,9 @@ struct Recipe{
 	7:	optional string	recipeComment;
 	8:	optional RecipeInfo	recipeInfo;
 	9:	optional bool recipeLiked;
+	10:	optional RECIPETYPE	recipeType;
 }
+
 enum RecipeExCode{
 	INVALID = 0,
 	SERVER_ERROR = 1,

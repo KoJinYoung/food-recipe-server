@@ -5,7 +5,13 @@
 //
 var Thrift = require('thrift').Thrift;
 var ttypes = module.exports = {};
-ttypes.Level = {
+ttypes.RECIPETYPE = {
+'NONE' : 0,
+'RECOMM' : 1,
+'SUBSC' : 2,
+'LATELY' : 3
+};
+ttypes.LEVEL = {
 'EASY' : 1,
 'NORMAL' : 2,
 'HARD' : 3
@@ -213,6 +219,7 @@ Recipe = module.exports.Recipe = function(args) {
   this.recipeComment = null;
   this.recipeInfo = null;
   this.recipeLiked = null;
+  this.recipeType = null;
   if (args) {
     if (args.recipeId !== undefined) {
       this.recipeId = args.recipeId;
@@ -240,6 +247,9 @@ Recipe = module.exports.Recipe = function(args) {
     }
     if (args.recipeLiked !== undefined) {
       this.recipeLiked = args.recipeLiked;
+    }
+    if (args.recipeType !== undefined) {
+      this.recipeType = args.recipeType;
     }
   }
 };
@@ -321,6 +331,13 @@ Recipe.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 10:
+      if (ftype == Thrift.Type.I32) {
+        this.recipeType = input.readI32();
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -375,6 +392,11 @@ Recipe.prototype.write = function(output) {
   if (this.recipeLiked !== null && this.recipeLiked !== undefined) {
     output.writeFieldBegin('recipeLiked', Thrift.Type.BOOL, 9);
     output.writeBool(this.recipeLiked);
+    output.writeFieldEnd();
+  }
+  if (this.recipeType !== null && this.recipeType !== undefined) {
+    output.writeFieldBegin('recipeType', Thrift.Type.I32, 10);
+    output.writeI32(this.recipeType);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
