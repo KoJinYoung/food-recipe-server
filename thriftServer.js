@@ -63,12 +63,8 @@ var server = thrift.createServer(RecipeAPI, {
 
 		connection.end();
 		console.log('disconnection complete');
-	},
-
-	makeRecipe_list: function(cb){
-
-
-	} 
+	}
+	 
 },{});
 
 server.listen(9090);
