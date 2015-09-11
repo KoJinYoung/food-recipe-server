@@ -4,10 +4,10 @@
 // DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
 //
 var Thrift = require('thrift').Thrift;
-var RECIPE_ttypes = require('./RECIPE_types')
+var Recipe_ttypes = require('./Recipe_types')
 
 
-var ttypes = require('./RECIPEAPI_types');
+var ttypes = require('./RecipeAPI_types');
 //HELPER FUNCTIONS AND STRUCTURES
 
 RecipeAPI_getAll_args = function(args) {
@@ -168,7 +168,7 @@ RecipeAPI_make_All_Recipe_list_result.prototype.read = function(input) {
     {
       case 0:
       if (ftype == Thrift.Type.STRUCT) {
-        this.success = new RECIPE_ttypes.Recipe();
+        this.success = new Recipe_ttypes.Recipe();
         this.success.read(input);
       } else {
         input.skip(ftype);
@@ -260,7 +260,7 @@ RecipeAPI_make_Recc_Recipe_list_result.prototype.read = function(input) {
         for (var _i5 = 0; _i5 < _size0; ++_i5)
         {
           var elem6 = null;
-          elem6 = new RECIPE_ttypes.Recipe();
+          elem6 = new Recipe_ttypes.Recipe();
           elem6.read(input);
           this.success.push(elem6);
         }
@@ -364,7 +364,7 @@ RecipeAPI_make_Subc_Recipe_list_result.prototype.read = function(input) {
         for (var _i13 = 0; _i13 < _size8; ++_i13)
         {
           var elem14 = null;
-          elem14 = new RECIPE_ttypes.Recipe();
+          elem14 = new Recipe_ttypes.Recipe();
           elem14.read(input);
           this.success.push(elem14);
         }
@@ -493,7 +493,7 @@ RecipeAPI_make_norm_Recipe_list_result.prototype.read = function(input) {
         for (var _i21 = 0; _i21 < _size16; ++_i21)
         {
           var elem22 = null;
-          elem22 = new RECIPE_ttypes.Recipe();
+          elem22 = new Recipe_ttypes.Recipe();
           elem22.read(input);
           this.success.push(elem22);
         }

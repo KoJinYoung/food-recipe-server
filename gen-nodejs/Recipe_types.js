@@ -8,8 +8,7 @@ var ttypes = module.exports = {};
 ttypes.RECIPETYPE = {
 'NONE' : 0,
 'RECOMM' : 1,
-'SUBSC' : 2,
-'LATELY' : 3
+'SUBSC' : 2
 };
 ttypes.LEVEL = {
 'EASY' : 1,

@@ -16,7 +16,7 @@
 
 #import "Recipe.h"
 
-@implementation foodRecipeIngredientInfo
+@implementation makcipeAPIIngredientInfo
 
 - (id) init
 {
@@ -185,7 +185,7 @@
 
 @end
 
-@implementation foodRecipeRecipeInfo
+@implementation makcipeAPIRecipeInfo
 
 - (id) init
 {
@@ -195,7 +195,7 @@
   return self;
 }
 
-- (id) initWithCalories: (foodRecipeint) calories level: (int) level cookTime: (foodRecipeint) cookTime ingredient: (NSMutableArray *) ingredient
+- (id) initWithCalories: (makcipeAPIint) calories level: (int) level cookTime: (makcipeAPIint) cookTime ingredient: (NSMutableArray *) ingredient
 {
   self = [super init];
   __calories = calories;
@@ -380,7 +380,7 @@
           int _i1;
           for (_i1 = 0; _i1 < _size0; ++_i1)
           {
-            foodRecipeIngredientInfo *_elem2 = [[foodRecipeIngredientInfo alloc] init];
+            makcipeAPIIngredientInfo *_elem2 = [[makcipeAPIIngredientInfo alloc] init];
             [_elem2 read: inProtocol];
             [fieldValue addObject: _elem2];
             [_elem2 release_stub];
@@ -453,7 +453,7 @@
 
 @end
 
-@implementation foodRecipeRecipe
+@implementation makcipeAPIRecipe
 
 - (id) init
 {
@@ -463,7 +463,7 @@
   return self;
 }
 
-- (id) initWithRecipeId: (foodRecipeint) recipeId writerId: (foodRecipeint) writerId writerPic: (NSString *) writerPic writerName: (NSString *) writerName recipeName: (NSString *) recipeName recipePic: (NSString *) recipePic recipeComment: (NSString *) recipeComment recipeInfo: (foodRecipeRecipeInfo *) recipeInfo recipeLiked: (BOOL) recipeLiked
+- (id) initWithRecipeId: (makcipeAPIint) recipeId writerId: (makcipeAPIint) writerId writerPic: (NSString *) writerPic writerName: (NSString *) writerName recipeName: (NSString *) recipeName recipePic: (NSString *) recipePic recipeComment: (NSString *) recipeComment recipeInfo: (makcipeAPIRecipeInfo *) recipeInfo recipeLiked: (BOOL) recipeLiked recipeType: (int) recipeType
 {
   self = [super init];
   __recipeId = recipeId;
@@ -484,6 +484,8 @@
   __recipeInfo_isset = YES;
   __recipeLiked = recipeLiked;
   __recipeLiked_isset = YES;
+  __recipeType = recipeType;
+  __recipeType_isset = YES;
   return self;
 }
 
@@ -535,6 +537,11 @@
     __recipeLiked = [decoder decodeBoolForKey: @"recipeLiked"];
     __recipeLiked_isset = YES;
   }
+  if ([decoder containsValueForKey: @"recipeType"])
+  {
+    __recipeType = [decoder decodeIntForKey: @"recipeType"];
+    __recipeType_isset = YES;
+  }
   return self;
 }
 
@@ -575,6 +582,10 @@
   if (__recipeLiked_isset)
   {
     [encoder encodeBool: __recipeLiked forKey: @"recipeLiked"];
+  }
+  if (__recipeType_isset)
+  {
+    [encoder encodeInt: __recipeType forKey: @"recipeType"];
   }
 }
 
@@ -728,11 +739,11 @@
   __recipeComment_isset = NO;
 }
 
-- (foodRecipeRecipeInfo *) recipeInfo {
+- (makcipeAPIRecipeInfo *) recipeInfo {
   return [[__recipeInfo retain_stub] autorelease_stub];
 }
 
-- (void) setRecipeInfo: (foodRecipeRecipeInfo *) recipeInfo {
+- (void) setRecipeInfo: (makcipeAPIRecipeInfo *) recipeInfo {
   [recipeInfo retain_stub];
   [__recipeInfo release_stub];
   __recipeInfo = recipeInfo;
@@ -764,6 +775,23 @@
 
 - (void) unsetRecipeLiked {
   __recipeLiked_isset = NO;
+}
+
+- (int) recipeType {
+  return __recipeType;
+}
+
+- (void) setRecipeType: (int) recipeType {
+  __recipeType = recipeType;
+  __recipeType_isset = YES;
+}
+
+- (BOOL) recipeTypeIsSet {
+  return __recipeType_isset;
+}
+
+- (void) unsetRecipeType {
+  __recipeType_isset = NO;
 }
 
 - (void) read: (id <TProtocol>) inProtocol
@@ -839,7 +867,7 @@
         break;
       case 8:
         if (fieldType == TType_STRUCT) {
-          foodRecipeRecipeInfo *fieldValue = [[foodRecipeRecipeInfo alloc] init];
+          makcipeAPIRecipeInfo *fieldValue = [[makcipeAPIRecipeInfo alloc] init];
           [fieldValue read: inProtocol];
           [self setRecipeInfo: fieldValue];
           [fieldValue release_stub];
@@ -851,6 +879,14 @@
         if (fieldType == TType_BOOL) {
           BOOL fieldValue = [inProtocol readBool];
           [self setRecipeLiked: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 10:
+        if (fieldType == TType_I32) {
+          int fieldValue = [inProtocol readI32];
+          [self setRecipeType: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
@@ -923,6 +959,11 @@
     [outProtocol writeBool: __recipeLiked];
     [outProtocol writeFieldEnd];
   }
+  if (__recipeType_isset) {
+    [outProtocol writeFieldBeginWithName: @"recipeType" type: TType_I32 fieldID: 10];
+    [outProtocol writeI32: __recipeType];
+    [outProtocol writeFieldEnd];
+  }
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
 }
@@ -947,13 +988,15 @@
   [ms appendFormat: @"%@", __recipeInfo];
   [ms appendString: @",recipeLiked:"];
   [ms appendFormat: @"%i", __recipeLiked];
+  [ms appendString: @",recipeType:"];
+  [ms appendFormat: @"%i", __recipeType];
   [ms appendString: @")"];
   return [NSString stringWithString: ms];
 }
 
 @end
 
-@implementation foodRecipeRecipeException
+@implementation makcipeAPIRecipeException
 
 - (id) init
 {
@@ -1114,7 +1157,7 @@
 @end
 
 
-@implementation foodRecipeRecipeConstants
+@implementation makcipeAPIRecipeConstants
 + (void) initialize {
 }
 @end

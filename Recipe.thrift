@@ -12,7 +12,6 @@ enum RECIPETYPE{
 	NONE = 0,
 	RECOMM = 1,
 	SUBSC = 2,
-	LATELY = 3
 }
 
 enum LEVEL{
@@ -44,7 +43,7 @@ struct Recipe{
 	8:	optional RecipeInfo	recipeInfo;
 	9:	optional bool recipeLiked;
 	10:	optional RECIPETYPE	recipeType;
-}
+}	
 
 enum RecipeExCode{
 	INVALID = 0,
