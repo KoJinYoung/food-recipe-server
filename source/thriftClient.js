@@ -1,0 +1,40 @@
+var thrift = require('thrift');
+var RecipeAPI = require('./gen-nodejs/RecipeAPI');
+var UserAPI = require('./gen-nodejs/UserAPI');
+var assert = require('assert');
+var config = require('./config')
+
+transport = thrift.TBufferedTransport
+protocol = thrift.TBinaryProtocol
+
+// var host = 'localhost'
+var host = config.host
+var port = config.port
+
+var connection = thrift.createConnection(host, port, {
+	transport : transport,
+	protocol : protocol
+
+}).on('error', function(err){
+	assert(false, err)
+
+}).on('connect', function() {
+	var mp = new thrift.Multiplexer()
+	var recipeAPIClient = mp.createClient("RecipeAPI", RecipeAPI, connection)
+	var userAPIClient = mp.createClient("UserAPI", UserAPI, connection)
+
+	// recipeAPIClient.getAll("RECIPE",  function(err,response){
+	// 	console.log(response)
+	// 	connection.end()
+	// })
+
+	// userAPIClient.getUserInfo('1', function(err, response) {
+	// 	console.log(response)
+	// 	connection.end()
+	// })
+
+	userAPIClient.signup('email', 'password', function(err, response) {
+		console.log(response)
+		connection.end()
+	})
+})
