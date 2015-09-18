@@ -9,17 +9,18 @@ var data = [];
 var mysql = require('mysql');
 var connection = mysql.createConnection({
 		// in lab
-/*		host : "127.0.0.1",
+		host : "127.0.0.1",
 		user : "root",
 		password : "ziny5601!",
 		database : "a"
-*/
+
 		// in home
-		
+		/*
 		host : "173.194.106.144",
 		user : "ziny",
 		password : "akrTj=100",
 		database : ""
+<<<<<<< HEAD
 		
 });
 
@@ -42,10 +43,14 @@ function make_norm_list(rid){
 	Recipe = new ttypes.Recipe();
 }
 
+=======
+		*/
+	});
+>>>>>>> parent of 47ea2cd... default recipe return func. You will given some info from thriftClient.js
 
 var server = thrift.createServer(RecipeAPI, {
 // make function
-	/*setMysql: function(cb){
+	setMysql: function(cb){
 		connection.connect(function(err){
 			if(err)	console.log('Connection error!');
 			else	console.log('Connection complete!');
@@ -57,17 +62,10 @@ var server = thrift.createServer(RecipeAPI, {
 		connection.end();
 		console.log('Disonnection complete!');
 		cb(null);
-	},*/
-
+	},
 
 	// search
 	getAll: function(table, cb){
-
-		connection.connect(function(err){
-			if(err)	console.log('connection err occured in getAll func!');
-			else	console.log('connection complete!');
-		})
-
 		connection.query('SELECT * FROM ' + table, function(err, result){
 			if(err){
 				console.log(err);
@@ -79,8 +77,9 @@ var server = thrift.createServer(RecipeAPI, {
 			console.log('query execution complete!!');
 			
 			data += JSON.stringify(result);
-			cb(null,data);
+			console.log(data);
 		});
+<<<<<<< HEAD
 
 		connection.end();
 		console.log('disconnection complete');
@@ -99,6 +98,10 @@ var server = thrift.createServer(RecipeAPI, {
 		db_connect();
 	}
 	 
+=======
+		cb(data);
+	}
+>>>>>>> parent of 47ea2cd... default recipe return func. You will given some info from thriftClient.js
 },{});
 
 server.listen(9090);

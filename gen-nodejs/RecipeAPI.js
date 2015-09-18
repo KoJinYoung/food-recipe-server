@@ -10,6 +10,118 @@ var Recipe_ttypes = require('./Recipe_types')
 var ttypes = require('./RecipeAPI_types');
 //HELPER FUNCTIONS AND STRUCTURES
 
+RecipeAPI_setMysql_args = function(args) {
+};
+RecipeAPI_setMysql_args.prototype = {};
+RecipeAPI_setMysql_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    input.skip(ftype);
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+RecipeAPI_setMysql_args.prototype.write = function(output) {
+  output.writeStructBegin('RecipeAPI_setMysql_args');
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+RecipeAPI_setMysql_result = function(args) {
+};
+RecipeAPI_setMysql_result.prototype = {};
+RecipeAPI_setMysql_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    input.skip(ftype);
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+RecipeAPI_setMysql_result.prototype.write = function(output) {
+  output.writeStructBegin('RecipeAPI_setMysql_result');
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+RecipeAPI_closeMysql_args = function(args) {
+};
+RecipeAPI_closeMysql_args.prototype = {};
+RecipeAPI_closeMysql_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    input.skip(ftype);
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+RecipeAPI_closeMysql_args.prototype.write = function(output) {
+  output.writeStructBegin('RecipeAPI_closeMysql_args');
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+RecipeAPI_closeMysql_result = function(args) {
+};
+RecipeAPI_closeMysql_result.prototype = {};
+RecipeAPI_closeMysql_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    input.skip(ftype);
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+RecipeAPI_closeMysql_result.prototype.write = function(output) {
+  output.writeStructBegin('RecipeAPI_closeMysql_result');
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
 RecipeAPI_getAll_args = function(args) {
   this.table = null;
   if (args) {
@@ -542,6 +654,66 @@ RecipeAPIClient = exports.Client = function(output, pClass) {
     this._reqs = {};
 };
 RecipeAPIClient.prototype = {};
+RecipeAPIClient.prototype.setMysql = function(callback) {
+  this.seqid += 1;
+  this._reqs[this.seqid] = callback;
+  this.send_setMysql();
+};
+
+RecipeAPIClient.prototype.send_setMysql = function() {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('setMysql', Thrift.MessageType.CALL, this.seqid);
+  var args = new RecipeAPI_setMysql_args();
+  args.write(output);
+  output.writeMessageEnd();
+  return this.output.flush();
+};
+
+RecipeAPIClient.prototype.recv_setMysql = function(input,mtype,rseqid) {
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
+  }
+  var result = new RecipeAPI_setMysql_result();
+  result.read(input);
+  input.readMessageEnd();
+
+  callback(null)
+};
+RecipeAPIClient.prototype.closeMysql = function(callback) {
+  this.seqid += 1;
+  this._reqs[this.seqid] = callback;
+  this.send_closeMysql();
+};
+
+RecipeAPIClient.prototype.send_closeMysql = function() {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('closeMysql', Thrift.MessageType.CALL, this.seqid);
+  var args = new RecipeAPI_closeMysql_args();
+  args.write(output);
+  output.writeMessageEnd();
+  return this.output.flush();
+};
+
+RecipeAPIClient.prototype.recv_closeMysql = function(input,mtype,rseqid) {
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
+  }
+  var result = new RecipeAPI_closeMysql_result();
+  result.read(input);
+  input.readMessageEnd();
+
+  callback(null)
+};
 RecipeAPIClient.prototype.getAll = function(table, callback) {
   this.seqid += 1;
   this._reqs[this.seqid] = callback;
@@ -725,6 +897,32 @@ RecipeAPIProcessor.prototype.process = function(input, output) {
     output.writeMessageEnd();
     output.flush();
   }
+}
+
+RecipeAPIProcessor.prototype.process_setMysql = function(seqid, input, output) {
+  var args = new RecipeAPI_setMysql_args();
+  args.read(input);
+  input.readMessageEnd();
+  this._handler.setMysql(function (err, result) {
+    var result = new RecipeAPI_setMysql_result((err != null ? err : {success: result}));
+    output.writeMessageBegin("setMysql", Thrift.MessageType.REPLY, seqid);
+    result.write(output);
+    output.writeMessageEnd();
+    output.flush();
+  })
+}
+
+RecipeAPIProcessor.prototype.process_closeMysql = function(seqid, input, output) {
+  var args = new RecipeAPI_closeMysql_args();
+  args.read(input);
+  input.readMessageEnd();
+  this._handler.closeMysql(function (err, result) {
+    var result = new RecipeAPI_closeMysql_result((err != null ? err : {success: result}));
+    output.writeMessageBegin("closeMysql", Thrift.MessageType.REPLY, seqid);
+    result.write(output);
+    output.writeMessageEnd();
+    output.flush();
+  })
 }
 
 RecipeAPIProcessor.prototype.process_getAll = function(seqid, input, output) {
