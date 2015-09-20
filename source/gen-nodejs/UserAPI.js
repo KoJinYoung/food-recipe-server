@@ -153,14 +153,14 @@ UserAPI_signup_result.prototype.write = function(output) {
 
 UserAPI_signupWithFacebook_args = function(args) {
   this.fb_id = null;
-  this.email = null;
+  this.name = null;
   this.pic_url = null;
   if (args) {
     if (args.fb_id !== undefined) {
       this.fb_id = args.fb_id;
     }
-    if (args.email !== undefined) {
-      this.email = args.email;
+    if (args.name !== undefined) {
+      this.name = args.name;
     }
     if (args.pic_url !== undefined) {
       this.pic_url = args.pic_url;
@@ -190,7 +190,7 @@ UserAPI_signupWithFacebook_args.prototype.read = function(input) {
       break;
       case 2:
       if (ftype == Thrift.Type.STRING) {
-        this.email = input.readString();
+        this.name = input.readString();
       } else {
         input.skip(ftype);
       }
@@ -218,9 +218,9 @@ UserAPI_signupWithFacebook_args.prototype.write = function(output) {
     output.writeString(this.fb_id);
     output.writeFieldEnd();
   }
-  if (this.email !== null && this.email !== undefined) {
-    output.writeFieldBegin('email', Thrift.Type.STRING, 2);
-    output.writeString(this.email);
+  if (this.name !== null && this.name !== undefined) {
+    output.writeFieldBegin('name', Thrift.Type.STRING, 2);
+    output.writeString(this.name);
     output.writeFieldEnd();
   }
   if (this.pic_url !== null && this.pic_url !== undefined) {
@@ -307,14 +307,14 @@ UserAPI_signupWithFacebook_result.prototype.write = function(output) {
 
 UserAPI_signupWithKakao_args = function(args) {
   this.ko_id = null;
-  this.email = null;
+  this.name = null;
   this.pic_url = null;
   if (args) {
     if (args.ko_id !== undefined) {
       this.ko_id = args.ko_id;
     }
-    if (args.email !== undefined) {
-      this.email = args.email;
+    if (args.name !== undefined) {
+      this.name = args.name;
     }
     if (args.pic_url !== undefined) {
       this.pic_url = args.pic_url;
@@ -344,7 +344,7 @@ UserAPI_signupWithKakao_args.prototype.read = function(input) {
       break;
       case 2:
       if (ftype == Thrift.Type.STRING) {
-        this.email = input.readString();
+        this.name = input.readString();
       } else {
         input.skip(ftype);
       }
@@ -372,9 +372,9 @@ UserAPI_signupWithKakao_args.prototype.write = function(output) {
     output.writeString(this.ko_id);
     output.writeFieldEnd();
   }
-  if (this.email !== null && this.email !== undefined) {
-    output.writeFieldBegin('email', Thrift.Type.STRING, 2);
-    output.writeString(this.email);
+  if (this.name !== null && this.name !== undefined) {
+    output.writeFieldBegin('name', Thrift.Type.STRING, 2);
+    output.writeString(this.name);
     output.writeFieldEnd();
   }
   if (this.pic_url !== null && this.pic_url !== undefined) {
@@ -460,10 +460,14 @@ UserAPI_signupWithKakao_result.prototype.write = function(output) {
 };
 
 UserAPI_signin_args = function(args) {
-  this.token = null;
+  this.email = null;
+  this.password = null;
   if (args) {
-    if (args.token !== undefined) {
-      this.token = args.token;
+    if (args.email !== undefined) {
+      this.email = args.email;
+    }
+    if (args.password !== undefined) {
+      this.password = args.password;
     }
   }
 };
@@ -483,14 +487,18 @@ UserAPI_signin_args.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.STRING) {
-        this.token = input.readString();
+        this.email = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
-      case 0:
+      case 2:
+      if (ftype == Thrift.Type.STRING) {
+        this.password = input.readString();
+      } else {
         input.skip(ftype);
-        break;
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -502,9 +510,14 @@ UserAPI_signin_args.prototype.read = function(input) {
 
 UserAPI_signin_args.prototype.write = function(output) {
   output.writeStructBegin('UserAPI_signin_args');
-  if (this.token !== null && this.token !== undefined) {
-    output.writeFieldBegin('token', Thrift.Type.STRING, 1);
-    output.writeString(this.token);
+  if (this.email !== null && this.email !== undefined) {
+    output.writeFieldBegin('email', Thrift.Type.STRING, 1);
+    output.writeString(this.email);
+    output.writeFieldEnd();
+  }
+  if (this.password !== null && this.password !== undefined) {
+    output.writeFieldBegin('password', Thrift.Type.STRING, 2);
+    output.writeString(this.password);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -1004,7 +1017,7 @@ UserAPIClient.prototype.recv_signup = function(input,mtype,rseqid) {
   }
   return callback('signup failed: unknown result');
 };
-UserAPIClient.prototype.signupWithFacebook = function(fb_id, email, pic_url, callback) {
+UserAPIClient.prototype.signupWithFacebook = function(fb_id, name, pic_url, callback) {
   this._seqid = this.new_seqid();
   if (callback === undefined) {
     var _defer = Q.defer();
@@ -1015,20 +1028,20 @@ UserAPIClient.prototype.signupWithFacebook = function(fb_id, email, pic_url, cal
         _defer.resolve(result);
       }
     };
-    this.send_signupWithFacebook(fb_id, email, pic_url);
+    this.send_signupWithFacebook(fb_id, name, pic_url);
     return _defer.promise;
   } else {
     this._reqs[this.seqid()] = callback;
-    this.send_signupWithFacebook(fb_id, email, pic_url);
+    this.send_signupWithFacebook(fb_id, name, pic_url);
   }
 };
 
-UserAPIClient.prototype.send_signupWithFacebook = function(fb_id, email, pic_url) {
+UserAPIClient.prototype.send_signupWithFacebook = function(fb_id, name, pic_url) {
   var output = new this.pClass(this.output);
   output.writeMessageBegin('signupWithFacebook', Thrift.MessageType.CALL, this.seqid());
   var args = new UserAPI_signupWithFacebook_args();
   args.fb_id = fb_id;
-  args.email = email;
+  args.name = name;
   args.pic_url = pic_url;
   args.write(output);
   output.writeMessageEnd();
@@ -1056,7 +1069,7 @@ UserAPIClient.prototype.recv_signupWithFacebook = function(input,mtype,rseqid) {
   }
   return callback('signupWithFacebook failed: unknown result');
 };
-UserAPIClient.prototype.signupWithKakao = function(ko_id, email, pic_url, callback) {
+UserAPIClient.prototype.signupWithKakao = function(ko_id, name, pic_url, callback) {
   this._seqid = this.new_seqid();
   if (callback === undefined) {
     var _defer = Q.defer();
@@ -1067,20 +1080,20 @@ UserAPIClient.prototype.signupWithKakao = function(ko_id, email, pic_url, callba
         _defer.resolve(result);
       }
     };
-    this.send_signupWithKakao(ko_id, email, pic_url);
+    this.send_signupWithKakao(ko_id, name, pic_url);
     return _defer.promise;
   } else {
     this._reqs[this.seqid()] = callback;
-    this.send_signupWithKakao(ko_id, email, pic_url);
+    this.send_signupWithKakao(ko_id, name, pic_url);
   }
 };
 
-UserAPIClient.prototype.send_signupWithKakao = function(ko_id, email, pic_url) {
+UserAPIClient.prototype.send_signupWithKakao = function(ko_id, name, pic_url) {
   var output = new this.pClass(this.output);
   output.writeMessageBegin('signupWithKakao', Thrift.MessageType.CALL, this.seqid());
   var args = new UserAPI_signupWithKakao_args();
   args.ko_id = ko_id;
-  args.email = email;
+  args.name = name;
   args.pic_url = pic_url;
   args.write(output);
   output.writeMessageEnd();
@@ -1108,7 +1121,7 @@ UserAPIClient.prototype.recv_signupWithKakao = function(input,mtype,rseqid) {
   }
   return callback('signupWithKakao failed: unknown result');
 };
-UserAPIClient.prototype.signin = function(token, callback) {
+UserAPIClient.prototype.signin = function(email, password, callback) {
   this._seqid = this.new_seqid();
   if (callback === undefined) {
     var _defer = Q.defer();
@@ -1119,19 +1132,20 @@ UserAPIClient.prototype.signin = function(token, callback) {
         _defer.resolve(result);
       }
     };
-    this.send_signin(token);
+    this.send_signin(email, password);
     return _defer.promise;
   } else {
     this._reqs[this.seqid()] = callback;
-    this.send_signin(token);
+    this.send_signin(email, password);
   }
 };
 
-UserAPIClient.prototype.send_signin = function(token) {
+UserAPIClient.prototype.send_signin = function(email, password) {
   var output = new this.pClass(this.output);
   output.writeMessageBegin('signin', Thrift.MessageType.CALL, this.seqid());
   var args = new UserAPI_signin_args();
-  args.token = token;
+  args.email = email;
+  args.password = password;
   args.write(output);
   output.writeMessageEnd();
   return this.output.flush();
@@ -1356,7 +1370,7 @@ UserAPIProcessor.prototype.process_signupWithFacebook = function(seqid, input, o
   args.read(input);
   input.readMessageEnd();
   if (this._handler.signupWithFacebook.length === 3) {
-    Q.fcall(this._handler.signupWithFacebook, args.fb_id, args.email, args.pic_url)
+    Q.fcall(this._handler.signupWithFacebook, args.fb_id, args.name, args.pic_url)
       .then(function(result) {
         var result = new UserAPI_signupWithFacebook_result({success: result});
         output.writeMessageBegin("signupWithFacebook", Thrift.MessageType.REPLY, seqid);
@@ -1371,7 +1385,7 @@ UserAPIProcessor.prototype.process_signupWithFacebook = function(seqid, input, o
         output.flush();
       });
   } else {
-    this._handler.signupWithFacebook(args.fb_id, args.email, args.pic_url,  function (err, result) {
+    this._handler.signupWithFacebook(args.fb_id, args.name, args.pic_url,  function (err, result) {
       var result = new UserAPI_signupWithFacebook_result((err != null ? err : {success: result}));
       output.writeMessageBegin("signupWithFacebook", Thrift.MessageType.REPLY, seqid);
       result.write(output);
@@ -1386,7 +1400,7 @@ UserAPIProcessor.prototype.process_signupWithKakao = function(seqid, input, outp
   args.read(input);
   input.readMessageEnd();
   if (this._handler.signupWithKakao.length === 3) {
-    Q.fcall(this._handler.signupWithKakao, args.ko_id, args.email, args.pic_url)
+    Q.fcall(this._handler.signupWithKakao, args.ko_id, args.name, args.pic_url)
       .then(function(result) {
         var result = new UserAPI_signupWithKakao_result({success: result});
         output.writeMessageBegin("signupWithKakao", Thrift.MessageType.REPLY, seqid);
@@ -1401,7 +1415,7 @@ UserAPIProcessor.prototype.process_signupWithKakao = function(seqid, input, outp
         output.flush();
       });
   } else {
-    this._handler.signupWithKakao(args.ko_id, args.email, args.pic_url,  function (err, result) {
+    this._handler.signupWithKakao(args.ko_id, args.name, args.pic_url,  function (err, result) {
       var result = new UserAPI_signupWithKakao_result((err != null ? err : {success: result}));
       output.writeMessageBegin("signupWithKakao", Thrift.MessageType.REPLY, seqid);
       result.write(output);
@@ -1415,8 +1429,8 @@ UserAPIProcessor.prototype.process_signin = function(seqid, input, output) {
   var args = new UserAPI_signin_args();
   args.read(input);
   input.readMessageEnd();
-  if (this._handler.signin.length === 1) {
-    Q.fcall(this._handler.signin, args.token)
+  if (this._handler.signin.length === 2) {
+    Q.fcall(this._handler.signin, args.email, args.password)
       .then(function(result) {
         var result = new UserAPI_signin_result({success: result});
         output.writeMessageBegin("signin", Thrift.MessageType.REPLY, seqid);
@@ -1431,7 +1445,7 @@ UserAPIProcessor.prototype.process_signin = function(seqid, input, output) {
         output.flush();
       });
   } else {
-    this._handler.signin(args.token,  function (err, result) {
+    this._handler.signin(args.email, args.password,  function (err, result) {
       var result = new UserAPI_signin_result((err != null ? err : {success: result}));
       output.writeMessageBegin("signin", Thrift.MessageType.REPLY, seqid);
       result.write(output);

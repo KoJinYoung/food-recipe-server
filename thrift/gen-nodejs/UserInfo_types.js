@@ -9,7 +9,7 @@ var Q = thrift.Q;
 
 
 var ttypes = module.exports = {};
-ttypes.SIGNUP = {
+ttypes.SIGNUP_STATUS = {
   'SIGNUP' : 0,
   'CERTIFICATED' : 1
 };
@@ -22,7 +22,7 @@ ttypes.UserExCode = {
   'INVALID' : 0,
   'SERVER_ERROR' : 1,
   'NOT_FOUND' : 2,
-  'DATA_EXIST' : 3
+  'DATA_EXISTS' : 3
 };
 User = module.exports.User = function(args) {
   this.uid = null;
@@ -35,6 +35,7 @@ User = module.exports.User = function(args) {
   this.pic = null;
   this.follower = null;
   this.following = null;
+  this.signup_status = null;
   if (args) {
     if (args.uid !== undefined) {
       this.uid = args.uid;
@@ -65,6 +66,9 @@ User = module.exports.User = function(args) {
     }
     if (args.following !== undefined) {
       this.following = args.following;
+    }
+    if (args.signup_status !== undefined) {
+      this.signup_status = args.signup_status;
     }
   }
 };
@@ -152,6 +156,13 @@ User.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 11:
+      if (ftype == Thrift.Type.I32) {
+        this.signup_status = input.readI32();
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -211,6 +222,11 @@ User.prototype.write = function(output) {
   if (this.following !== null && this.following !== undefined) {
     output.writeFieldBegin('following', Thrift.Type.I32, 10);
     output.writeI32(this.following);
+    output.writeFieldEnd();
+  }
+  if (this.signup_status !== null && this.signup_status !== undefined) {
+    output.writeFieldBegin('signup_status', Thrift.Type.I32, 11);
+    output.writeI32(this.signup_status);
     output.writeFieldEnd();
   }
   output.writeFieldStop();

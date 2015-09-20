@@ -15,7 +15,7 @@ public enum UserExCode implements org.apache.thrift.TEnum {
   INVALID(0),
   SERVER_ERROR(1),
   NOT_FOUND(2),
-  DATA_EXIST(3);
+  DATA_EXISTS(3);
 
   private final int value;
 
@@ -43,7 +43,7 @@ public enum UserExCode implements org.apache.thrift.TEnum {
       case 2:
         return NOT_FOUND;
       case 3:
-        return DATA_EXIST;
+        return DATA_EXISTS;
       default:
         return null;
     }

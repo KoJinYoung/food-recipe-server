@@ -16,9 +16,9 @@
 #import "TBase.h"
 
 
-enum makcipeAPISIGNUP {
-  SIGNUP_SIGNUP = 0,
-  SIGNUP_CERTIFICATED = 1
+enum makcipeAPISIGNUP_STATUS {
+  SIGNUP_STATUS_SIGNUP = 0,
+  SIGNUP_STATUS_CERTIFICATED = 1
 };
 
 enum makcipeAPIAUTH_METHOD {
@@ -31,7 +31,7 @@ enum makcipeAPIUserExCode {
   UserExCode_INVALID = 0,
   UserExCode_SERVER_ERROR = 1,
   UserExCode_NOT_FOUND = 2,
-  UserExCode_DATA_EXIST = 3
+  UserExCode_DATA_EXISTS = 3
 };
 
 typedef int64_t makcipeAPIlong;
@@ -49,6 +49,7 @@ typedef int32_t makcipeAPIint;
   NSString * __pic;
   makcipeAPIint __follower;
   makcipeAPIint __following;
+  int __signup_status;
 
   BOOL __uid_isset;
   BOOL __token_isset;
@@ -60,6 +61,7 @@ typedef int32_t makcipeAPIint;
   BOOL __pic_isset;
   BOOL __follower_isset;
   BOOL __following_isset;
+  BOOL __signup_status_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -73,10 +75,11 @@ typedef int32_t makcipeAPIint;
 @property (nonatomic, retain, getter=pic, setter=setPic:) NSString * pic;
 @property (nonatomic, getter=follower, setter=setFollower:) makcipeAPIint follower;
 @property (nonatomic, getter=following, setter=setFollowing:) makcipeAPIint following;
+@property (nonatomic, getter=signup_status, setter=setSignup_status:) int signup_status;
 #endif
 
 - (id) init;
-- (id) initWithUid: (makcipeAPIint) uid token: (NSString *) token username: (NSString *) username auth_method: (makcipeAPIint) auth_method facebookId: (NSString *) facebookId kakaoId: (NSString *) kakaoId email: (NSString *) email pic: (NSString *) pic follower: (makcipeAPIint) follower following: (makcipeAPIint) following;
+- (id) initWithUid: (makcipeAPIint) uid token: (NSString *) token username: (NSString *) username auth_method: (makcipeAPIint) auth_method facebookId: (NSString *) facebookId kakaoId: (NSString *) kakaoId email: (NSString *) email pic: (NSString *) pic follower: (makcipeAPIint) follower following: (makcipeAPIint) following signup_status: (int) signup_status;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -142,6 +145,12 @@ typedef int32_t makcipeAPIint;
 - (void) setFollowing: (makcipeAPIint) following;
 #endif
 - (BOOL) followingIsSet;
+
+#if !__has_feature(objc_arc)
+- (int) signup_status;
+- (void) setSignup_status: (int) signup_status;
+#endif
+- (BOOL) signup_statusIsSet;
 
 @end
 

@@ -21,3 +21,27 @@ nodejs에서의 사용법은
 를 참고하시면 됩니다.
 
 =============================================
+
+
+2015.9.21 05:06
+--------------------------------------------
+thriftClient 사용 예시 수정
+ - exception read
+
+"secure-random-string" npm package 추가
+
+config 수정
+- mysql / mysql_localhost에 database 속성값 삽입
+
+dbConnecor 수정
+ - tokenChecker 추가
+ - tokenChecker (connection, token, callback)
+
+UserInfo 수정
+UserAPI 수정
+UserAPIHandler 구현 95% 완료
+ - 처음 가입인지 로그인인지 구분해는 부분 필요
+ - 회원 탈퇴 구체화 (디비 구조가 완성되고 수정해야됨)
+ - Exception 처리 (@Ziny 참고하세요)
+ - signup_method는 bit연산으로 체크하세요.
+ =============================================

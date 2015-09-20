@@ -11,6 +11,7 @@
     "express": "^4.13.3",
     "mysql": "^2.9.0",
     "thrift": "^0.9.2",
-    "lodash": "^3.10.1"
+    "lodash": "^3.10.1",
+    "secure-random-string": "^1.0.0"
   }
 }

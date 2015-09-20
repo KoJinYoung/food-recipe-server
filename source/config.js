@@ -29,7 +29,8 @@ module.exports = {
   mysql: {
     host: '173.194.248.173',
     user: 'app',
-    password: 'akrTj=100'
+    password: 'akrTj=100',
+    database: 'Makcipe'
   },
 
   mysql_db: 'Makcipe',
@@ -37,7 +38,8 @@ module.exports = {
   mysql_localhost: {
     host: '127.0.0.1',
     user: 'root',
-    password: 'ziny5601!'
+    password: 'ziny5601!',
+    database: 'a'
   },
 
   mysql_db_localhost: 'a'

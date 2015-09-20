@@ -28,7 +28,7 @@
   return self;
 }
 
-- (id) initWithUid: (makcipeAPIint) uid token: (NSString *) token username: (NSString *) username auth_method: (makcipeAPIint) auth_method facebookId: (NSString *) facebookId kakaoId: (NSString *) kakaoId email: (NSString *) email pic: (NSString *) pic follower: (makcipeAPIint) follower following: (makcipeAPIint) following
+- (id) initWithUid: (makcipeAPIint) uid token: (NSString *) token username: (NSString *) username auth_method: (makcipeAPIint) auth_method facebookId: (NSString *) facebookId kakaoId: (NSString *) kakaoId email: (NSString *) email pic: (NSString *) pic follower: (makcipeAPIint) follower following: (makcipeAPIint) following signup_status: (int) signup_status
 {
   self = [super init];
   __uid = uid;
@@ -51,6 +51,8 @@
   __follower_isset = YES;
   __following = following;
   __following_isset = YES;
+  __signup_status = signup_status;
+  __signup_status_isset = YES;
   return self;
 }
 
@@ -107,6 +109,11 @@
     __following = [decoder decodeInt32ForKey: @"following"];
     __following_isset = YES;
   }
+  if ([decoder containsValueForKey: @"signup_status"])
+  {
+    __signup_status = [decoder decodeIntForKey: @"signup_status"];
+    __signup_status_isset = YES;
+  }
   return self;
 }
 
@@ -151,6 +158,10 @@
   if (__following_isset)
   {
     [encoder encodeInt32: __following forKey: @"following"];
+  }
+  if (__signup_status_isset)
+  {
+    [encoder encodeInt: __signup_status forKey: @"signup_status"];
   }
 }
 
@@ -359,6 +370,23 @@
   __following_isset = NO;
 }
 
+- (int) signup_status {
+  return __signup_status;
+}
+
+- (void) setSignup_status: (int) signup_status {
+  __signup_status = signup_status;
+  __signup_status_isset = YES;
+}
+
+- (BOOL) signup_statusIsSet {
+  return __signup_status_isset;
+}
+
+- (void) unsetSignup_status {
+  __signup_status_isset = NO;
+}
+
 - (void) read: (id <TProtocol>) inProtocol
 {
   NSString * fieldName;
@@ -454,6 +482,14 @@
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
+      case 11:
+        if (fieldType == TType_I32) {
+          int fieldValue = [inProtocol readI32];
+          [self setSignup_status: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
       default:
         [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         break;
@@ -527,6 +563,11 @@
     [outProtocol writeI32: __following];
     [outProtocol writeFieldEnd];
   }
+  if (__signup_status_isset) {
+    [outProtocol writeFieldBeginWithName: @"signup_status" type: TType_I32 fieldID: 11];
+    [outProtocol writeI32: __signup_status];
+    [outProtocol writeFieldEnd];
+  }
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
 }
@@ -557,6 +598,8 @@
   [ms appendFormat: @"%i", __follower];
   [ms appendString: @",following:"];
   [ms appendFormat: @"%i", __following];
+  [ms appendString: @",signup_status:"];
+  [ms appendFormat: @"%i", __signup_status];
   [ms appendString: @")"];
   return [NSString stringWithString: ms];
 }

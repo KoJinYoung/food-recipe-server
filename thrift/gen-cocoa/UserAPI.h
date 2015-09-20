@@ -19,9 +19,9 @@
 
 @protocol makcipeAPIUserAPI <NSObject>
 - (makcipeAPIUser *) signup: (NSString *) email password: (NSString *) password;  // throws makcipeAPIUserException *, TException
-- (makcipeAPIUser *) signupWithFacebook: (NSString *) fb_id email: (NSString *) email pic_url: (NSString *) pic_url;  // throws makcipeAPIUserException *, TException
-- (makcipeAPIUser *) signupWithKakao: (NSString *) ko_id email: (NSString *) email pic_url: (NSString *) pic_url;  // throws makcipeAPIUserException *, TException
-- (makcipeAPIUser *) signin: (NSString *) token;  // throws makcipeAPIUserException *, TException
+- (makcipeAPIUser *) signupWithFacebook: (NSString *) fb_id name: (NSString *) name pic_url: (NSString *) pic_url;  // throws makcipeAPIUserException *, TException
+- (makcipeAPIUser *) signupWithKakao: (NSString *) ko_id name: (NSString *) name pic_url: (NSString *) pic_url;  // throws makcipeAPIUserException *, TException
+- (makcipeAPIUser *) signin: (NSString *) email password: (NSString *) password;  // throws makcipeAPIUserException *, TException
 - (void) signout: (NSString *) token;  // throws makcipeAPIUserException *, TException
 - (void) withdraw: (NSString *) token password: (NSString *) password;  // throws makcipeAPIUserException *, TException
 - (makcipeAPIUser *) getUserInfo: (NSString *) token;  // throws makcipeAPIUserException *, TException

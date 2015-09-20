@@ -11,13 +11,13 @@ import java.util.Map;
 import java.util.HashMap;
 import org.apache.thrift.TEnum;
 
-public enum SIGNUP implements org.apache.thrift.TEnum {
+public enum SIGNUP_STATUS implements org.apache.thrift.TEnum {
   SIGNUP(0),
   CERTIFICATED(1);
 
   private final int value;
 
-  private SIGNUP(int value) {
+  private SIGNUP_STATUS(int value) {
     this.value = value;
   }
 
@@ -32,7 +32,7 @@ public enum SIGNUP implements org.apache.thrift.TEnum {
    * Find a the enum type by its integer value, as defined in the Thrift IDL.
    * @return null if the value is not found.
    */
-  public static SIGNUP findByValue(int value) { 
+  public static SIGNUP_STATUS findByValue(int value) { 
     switch (value) {
       case 0:
         return SIGNUP;

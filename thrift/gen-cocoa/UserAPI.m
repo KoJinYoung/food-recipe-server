@@ -447,22 +447,22 @@
 
 @interface makcipeAPIsignupWithFacebook_args : NSObject <TBase, NSCoding> {
   NSString * __fb_id;
-  NSString * __email;
+  NSString * __name;
   NSString * __pic_url;
 
   BOOL __fb_id_isset;
-  BOOL __email_isset;
+  BOOL __name_isset;
   BOOL __pic_url_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 @property (nonatomic, retain, getter=fb_id, setter=setFb_id:) NSString * fb_id;
-@property (nonatomic, retain, getter=email, setter=setEmail:) NSString * email;
+@property (nonatomic, retain, getter=name, setter=setName:) NSString * name;
 @property (nonatomic, retain, getter=pic_url, setter=setPic_url:) NSString * pic_url;
 #endif
 
 - (id) init;
-- (id) initWithFb_id: (NSString *) fb_id email: (NSString *) email pic_url: (NSString *) pic_url;
+- (id) initWithFb_id: (NSString *) fb_id name: (NSString *) name pic_url: (NSString *) pic_url;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -476,10 +476,10 @@
 - (BOOL) fb_idIsSet;
 
 #if !__has_feature(objc_arc)
-- (NSString *) email;
-- (void) setEmail: (NSString *) email;
+- (NSString *) name;
+- (void) setName: (NSString *) name;
 #endif
-- (BOOL) emailIsSet;
+- (BOOL) nameIsSet;
 
 #if !__has_feature(objc_arc)
 - (NSString *) pic_url;
@@ -499,13 +499,13 @@
   return self;
 }
 
-- (id) initWithFb_id: (NSString *) fb_id email: (NSString *) email pic_url: (NSString *) pic_url
+- (id) initWithFb_id: (NSString *) fb_id name: (NSString *) name pic_url: (NSString *) pic_url
 {
   self = [super init];
   __fb_id = [fb_id retain_stub];
   __fb_id_isset = YES;
-  __email = [email retain_stub];
-  __email_isset = YES;
+  __name = [name retain_stub];
+  __name_isset = YES;
   __pic_url = [pic_url retain_stub];
   __pic_url_isset = YES;
   return self;
@@ -519,10 +519,10 @@
     __fb_id = [[decoder decodeObjectForKey: @"fb_id"] retain_stub];
     __fb_id_isset = YES;
   }
-  if ([decoder containsValueForKey: @"email"])
+  if ([decoder containsValueForKey: @"name"])
   {
-    __email = [[decoder decodeObjectForKey: @"email"] retain_stub];
-    __email_isset = YES;
+    __name = [[decoder decodeObjectForKey: @"name"] retain_stub];
+    __name_isset = YES;
   }
   if ([decoder containsValueForKey: @"pic_url"])
   {
@@ -538,9 +538,9 @@
   {
     [encoder encodeObject: __fb_id forKey: @"fb_id"];
   }
-  if (__email_isset)
+  if (__name_isset)
   {
-    [encoder encodeObject: __email forKey: @"email"];
+    [encoder encodeObject: __name forKey: @"name"];
   }
   if (__pic_url_isset)
   {
@@ -551,7 +551,7 @@
 - (void) dealloc
 {
   [__fb_id release_stub];
-  [__email release_stub];
+  [__name release_stub];
   [__pic_url release_stub];
   [super dealloc_stub];
 }
@@ -577,25 +577,25 @@
   __fb_id_isset = NO;
 }
 
-- (NSString *) email {
-  return [[__email retain_stub] autorelease_stub];
+- (NSString *) name {
+  return [[__name retain_stub] autorelease_stub];
 }
 
-- (void) setEmail: (NSString *) email {
-  [email retain_stub];
-  [__email release_stub];
-  __email = email;
-  __email_isset = YES;
+- (void) setName: (NSString *) name {
+  [name retain_stub];
+  [__name release_stub];
+  __name = name;
+  __name_isset = YES;
 }
 
-- (BOOL) emailIsSet {
-  return __email_isset;
+- (BOOL) nameIsSet {
+  return __name_isset;
 }
 
-- (void) unsetEmail {
-  [__email release_stub];
-  __email = nil;
-  __email_isset = NO;
+- (void) unsetName {
+  [__name release_stub];
+  __name = nil;
+  __name_isset = NO;
 }
 
 - (NSString *) pic_url {
@@ -645,7 +645,7 @@
       case 2:
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
-          [self setEmail: fieldValue];
+          [self setName: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
@@ -676,10 +676,10 @@
       [outProtocol writeFieldEnd];
     }
   }
-  if (__email_isset) {
-    if (__email != nil) {
-      [outProtocol writeFieldBeginWithName: @"email" type: TType_STRING fieldID: 2];
-      [outProtocol writeString: __email];
+  if (__name_isset) {
+    if (__name != nil) {
+      [outProtocol writeFieldBeginWithName: @"name" type: TType_STRING fieldID: 2];
+      [outProtocol writeString: __name];
       [outProtocol writeFieldEnd];
     }
   }
@@ -702,8 +702,8 @@
   NSMutableString * ms = [NSMutableString stringWithString: @"makcipeAPIsignupWithFacebook_args("];
   [ms appendString: @"fb_id:"];
   [ms appendFormat: @"\"%@\"", __fb_id];
-  [ms appendString: @",email:"];
-  [ms appendFormat: @"\"%@\"", __email];
+  [ms appendString: @",name:"];
+  [ms appendFormat: @"\"%@\"", __name];
   [ms appendString: @",pic_url:"];
   [ms appendFormat: @"\"%@\"", __pic_url];
   [ms appendString: @")"];
@@ -926,22 +926,22 @@
 
 @interface makcipeAPIsignupWithKakao_args : NSObject <TBase, NSCoding> {
   NSString * __ko_id;
-  NSString * __email;
+  NSString * __name;
   NSString * __pic_url;
 
   BOOL __ko_id_isset;
-  BOOL __email_isset;
+  BOOL __name_isset;
   BOOL __pic_url_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 @property (nonatomic, retain, getter=ko_id, setter=setKo_id:) NSString * ko_id;
-@property (nonatomic, retain, getter=email, setter=setEmail:) NSString * email;
+@property (nonatomic, retain, getter=name, setter=setName:) NSString * name;
 @property (nonatomic, retain, getter=pic_url, setter=setPic_url:) NSString * pic_url;
 #endif
 
 - (id) init;
-- (id) initWithKo_id: (NSString *) ko_id email: (NSString *) email pic_url: (NSString *) pic_url;
+- (id) initWithKo_id: (NSString *) ko_id name: (NSString *) name pic_url: (NSString *) pic_url;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -955,10 +955,10 @@
 - (BOOL) ko_idIsSet;
 
 #if !__has_feature(objc_arc)
-- (NSString *) email;
-- (void) setEmail: (NSString *) email;
+- (NSString *) name;
+- (void) setName: (NSString *) name;
 #endif
-- (BOOL) emailIsSet;
+- (BOOL) nameIsSet;
 
 #if !__has_feature(objc_arc)
 - (NSString *) pic_url;
@@ -978,13 +978,13 @@
   return self;
 }
 
-- (id) initWithKo_id: (NSString *) ko_id email: (NSString *) email pic_url: (NSString *) pic_url
+- (id) initWithKo_id: (NSString *) ko_id name: (NSString *) name pic_url: (NSString *) pic_url
 {
   self = [super init];
   __ko_id = [ko_id retain_stub];
   __ko_id_isset = YES;
-  __email = [email retain_stub];
-  __email_isset = YES;
+  __name = [name retain_stub];
+  __name_isset = YES;
   __pic_url = [pic_url retain_stub];
   __pic_url_isset = YES;
   return self;
@@ -998,10 +998,10 @@
     __ko_id = [[decoder decodeObjectForKey: @"ko_id"] retain_stub];
     __ko_id_isset = YES;
   }
-  if ([decoder containsValueForKey: @"email"])
+  if ([decoder containsValueForKey: @"name"])
   {
-    __email = [[decoder decodeObjectForKey: @"email"] retain_stub];
-    __email_isset = YES;
+    __name = [[decoder decodeObjectForKey: @"name"] retain_stub];
+    __name_isset = YES;
   }
   if ([decoder containsValueForKey: @"pic_url"])
   {
@@ -1017,9 +1017,9 @@
   {
     [encoder encodeObject: __ko_id forKey: @"ko_id"];
   }
-  if (__email_isset)
+  if (__name_isset)
   {
-    [encoder encodeObject: __email forKey: @"email"];
+    [encoder encodeObject: __name forKey: @"name"];
   }
   if (__pic_url_isset)
   {
@@ -1030,7 +1030,7 @@
 - (void) dealloc
 {
   [__ko_id release_stub];
-  [__email release_stub];
+  [__name release_stub];
   [__pic_url release_stub];
   [super dealloc_stub];
 }
@@ -1056,25 +1056,25 @@
   __ko_id_isset = NO;
 }
 
-- (NSString *) email {
-  return [[__email retain_stub] autorelease_stub];
+- (NSString *) name {
+  return [[__name retain_stub] autorelease_stub];
 }
 
-- (void) setEmail: (NSString *) email {
-  [email retain_stub];
-  [__email release_stub];
-  __email = email;
-  __email_isset = YES;
+- (void) setName: (NSString *) name {
+  [name retain_stub];
+  [__name release_stub];
+  __name = name;
+  __name_isset = YES;
 }
 
-- (BOOL) emailIsSet {
-  return __email_isset;
+- (BOOL) nameIsSet {
+  return __name_isset;
 }
 
-- (void) unsetEmail {
-  [__email release_stub];
-  __email = nil;
-  __email_isset = NO;
+- (void) unsetName {
+  [__name release_stub];
+  __name = nil;
+  __name_isset = NO;
 }
 
 - (NSString *) pic_url {
@@ -1124,7 +1124,7 @@
       case 2:
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
-          [self setEmail: fieldValue];
+          [self setName: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
@@ -1155,10 +1155,10 @@
       [outProtocol writeFieldEnd];
     }
   }
-  if (__email_isset) {
-    if (__email != nil) {
-      [outProtocol writeFieldBeginWithName: @"email" type: TType_STRING fieldID: 2];
-      [outProtocol writeString: __email];
+  if (__name_isset) {
+    if (__name != nil) {
+      [outProtocol writeFieldBeginWithName: @"name" type: TType_STRING fieldID: 2];
+      [outProtocol writeString: __name];
       [outProtocol writeFieldEnd];
     }
   }
@@ -1181,8 +1181,8 @@
   NSMutableString * ms = [NSMutableString stringWithString: @"makcipeAPIsignupWithKakao_args("];
   [ms appendString: @"ko_id:"];
   [ms appendFormat: @"\"%@\"", __ko_id];
-  [ms appendString: @",email:"];
-  [ms appendFormat: @"\"%@\"", __email];
+  [ms appendString: @",name:"];
+  [ms appendFormat: @"\"%@\"", __name];
   [ms appendString: @",pic_url:"];
   [ms appendFormat: @"\"%@\"", __pic_url];
   [ms appendString: @")"];
@@ -1404,17 +1404,20 @@
 @end
 
 @interface makcipeAPIsignin_args : NSObject <TBase, NSCoding> {
-  NSString * __token;
+  NSString * __email;
+  NSString * __password;
 
-  BOOL __token_isset;
+  BOOL __email_isset;
+  BOOL __password_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@property (nonatomic, retain, getter=token, setter=setToken:) NSString * token;
+@property (nonatomic, retain, getter=email, setter=setEmail:) NSString * email;
+@property (nonatomic, retain, getter=password, setter=setPassword:) NSString * password;
 #endif
 
 - (id) init;
-- (id) initWithToken: (NSString *) token;
+- (id) initWithEmail: (NSString *) email password: (NSString *) password;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -1422,10 +1425,16 @@
 - (void) validate;
 
 #if !__has_feature(objc_arc)
-- (NSString *) token;
-- (void) setToken: (NSString *) token;
+- (NSString *) email;
+- (void) setEmail: (NSString *) email;
 #endif
-- (BOOL) tokenIsSet;
+- (BOOL) emailIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSString *) password;
+- (void) setPassword: (NSString *) password;
+#endif
+- (BOOL) passwordIsSet;
 
 @end
 
@@ -1439,58 +1448,91 @@
   return self;
 }
 
-- (id) initWithToken: (NSString *) token
+- (id) initWithEmail: (NSString *) email password: (NSString *) password
 {
   self = [super init];
-  __token = [token retain_stub];
-  __token_isset = YES;
+  __email = [email retain_stub];
+  __email_isset = YES;
+  __password = [password retain_stub];
+  __password_isset = YES;
   return self;
 }
 
 - (id) initWithCoder: (NSCoder *) decoder
 {
   self = [super init];
-  if ([decoder containsValueForKey: @"token"])
+  if ([decoder containsValueForKey: @"email"])
   {
-    __token = [[decoder decodeObjectForKey: @"token"] retain_stub];
-    __token_isset = YES;
+    __email = [[decoder decodeObjectForKey: @"email"] retain_stub];
+    __email_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"password"])
+  {
+    __password = [[decoder decodeObjectForKey: @"password"] retain_stub];
+    __password_isset = YES;
   }
   return self;
 }
 
 - (void) encodeWithCoder: (NSCoder *) encoder
 {
-  if (__token_isset)
+  if (__email_isset)
   {
-    [encoder encodeObject: __token forKey: @"token"];
+    [encoder encodeObject: __email forKey: @"email"];
+  }
+  if (__password_isset)
+  {
+    [encoder encodeObject: __password forKey: @"password"];
   }
 }
 
 - (void) dealloc
 {
-  [__token release_stub];
+  [__email release_stub];
+  [__password release_stub];
   [super dealloc_stub];
 }
 
-- (NSString *) token {
-  return [[__token retain_stub] autorelease_stub];
+- (NSString *) email {
+  return [[__email retain_stub] autorelease_stub];
 }
 
-- (void) setToken: (NSString *) token {
-  [token retain_stub];
-  [__token release_stub];
-  __token = token;
-  __token_isset = YES;
+- (void) setEmail: (NSString *) email {
+  [email retain_stub];
+  [__email release_stub];
+  __email = email;
+  __email_isset = YES;
 }
 
-- (BOOL) tokenIsSet {
-  return __token_isset;
+- (BOOL) emailIsSet {
+  return __email_isset;
 }
 
-- (void) unsetToken {
-  [__token release_stub];
-  __token = nil;
-  __token_isset = NO;
+- (void) unsetEmail {
+  [__email release_stub];
+  __email = nil;
+  __email_isset = NO;
+}
+
+- (NSString *) password {
+  return [[__password retain_stub] autorelease_stub];
+}
+
+- (void) setPassword: (NSString *) password {
+  [password retain_stub];
+  [__password release_stub];
+  __password = password;
+  __password_isset = YES;
+}
+
+- (BOOL) passwordIsSet {
+  return __password_isset;
+}
+
+- (void) unsetPassword {
+  [__password release_stub];
+  __password = nil;
+  __password_isset = NO;
 }
 
 - (void) read: (id <TProtocol>) inProtocol
@@ -1511,7 +1553,15 @@
       case 1:
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
-          [self setToken: fieldValue];
+          [self setEmail: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 2:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setPassword: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
@@ -1527,10 +1577,17 @@
 
 - (void) write: (id <TProtocol>) outProtocol {
   [outProtocol writeStructBeginWithName: @"signin_args"];
-  if (__token_isset) {
-    if (__token != nil) {
-      [outProtocol writeFieldBeginWithName: @"token" type: TType_STRING fieldID: 1];
-      [outProtocol writeString: __token];
+  if (__email_isset) {
+    if (__email != nil) {
+      [outProtocol writeFieldBeginWithName: @"email" type: TType_STRING fieldID: 1];
+      [outProtocol writeString: __email];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__password_isset) {
+    if (__password != nil) {
+      [outProtocol writeFieldBeginWithName: @"password" type: TType_STRING fieldID: 2];
+      [outProtocol writeString: __password];
       [outProtocol writeFieldEnd];
     }
   }
@@ -1544,8 +1601,10 @@
 
 - (NSString *) description {
   NSMutableString * ms = [NSMutableString stringWithString: @"makcipeAPIsignin_args("];
-  [ms appendString: @"token:"];
-  [ms appendFormat: @"\"%@\"", __token];
+  [ms appendString: @"email:"];
+  [ms appendFormat: @"\"%@\"", __email];
+  [ms appendString: @",password:"];
+  [ms appendFormat: @"\"%@\"", __password];
   [ms appendString: @")"];
   return [NSString stringWithString: ms];
 }
@@ -2855,7 +2914,7 @@
   return [self recv_signup];
 }
 
-- (void) send_signupWithFacebook: (NSString *) fb_id email: (NSString *) email pic_url: (NSString *) pic_url
+- (void) send_signupWithFacebook: (NSString *) fb_id name: (NSString *) name pic_url: (NSString *) pic_url
 {
   [outProtocol writeMessageBeginWithName: @"signupWithFacebook" type: TMessageType_CALL sequenceID: 0];
   [outProtocol writeStructBeginWithName: @"signupWithFacebook_args"];
@@ -2864,9 +2923,9 @@
     [outProtocol writeString: fb_id];
     [outProtocol writeFieldEnd];
   }
-  if (email != nil)  {
-    [outProtocol writeFieldBeginWithName: @"email" type: TType_STRING fieldID: 2];
-    [outProtocol writeString: email];
+  if (name != nil)  {
+    [outProtocol writeFieldBeginWithName: @"name" type: TType_STRING fieldID: 2];
+    [outProtocol writeString: name];
     [outProtocol writeFieldEnd];
   }
   if (pic_url != nil)  {
@@ -2902,13 +2961,13 @@
                                            reason: @"signupWithFacebook failed: unknown result"];
 }
 
-- (makcipeAPIUser *) signupWithFacebook: (NSString *) fb_id email: (NSString *) email pic_url: (NSString *) pic_url
+- (makcipeAPIUser *) signupWithFacebook: (NSString *) fb_id name: (NSString *) name pic_url: (NSString *) pic_url
 {
-  [self send_signupWithFacebook : fb_id email: email pic_url: pic_url];
+  [self send_signupWithFacebook : fb_id name: name pic_url: pic_url];
   return [self recv_signupWithFacebook];
 }
 
-- (void) send_signupWithKakao: (NSString *) ko_id email: (NSString *) email pic_url: (NSString *) pic_url
+- (void) send_signupWithKakao: (NSString *) ko_id name: (NSString *) name pic_url: (NSString *) pic_url
 {
   [outProtocol writeMessageBeginWithName: @"signupWithKakao" type: TMessageType_CALL sequenceID: 0];
   [outProtocol writeStructBeginWithName: @"signupWithKakao_args"];
@@ -2917,9 +2976,9 @@
     [outProtocol writeString: ko_id];
     [outProtocol writeFieldEnd];
   }
-  if (email != nil)  {
-    [outProtocol writeFieldBeginWithName: @"email" type: TType_STRING fieldID: 2];
-    [outProtocol writeString: email];
+  if (name != nil)  {
+    [outProtocol writeFieldBeginWithName: @"name" type: TType_STRING fieldID: 2];
+    [outProtocol writeString: name];
     [outProtocol writeFieldEnd];
   }
   if (pic_url != nil)  {
@@ -2955,19 +3014,24 @@
                                            reason: @"signupWithKakao failed: unknown result"];
 }
 
-- (makcipeAPIUser *) signupWithKakao: (NSString *) ko_id email: (NSString *) email pic_url: (NSString *) pic_url
+- (makcipeAPIUser *) signupWithKakao: (NSString *) ko_id name: (NSString *) name pic_url: (NSString *) pic_url
 {
-  [self send_signupWithKakao : ko_id email: email pic_url: pic_url];
+  [self send_signupWithKakao : ko_id name: name pic_url: pic_url];
   return [self recv_signupWithKakao];
 }
 
-- (void) send_signin: (NSString *) token
+- (void) send_signin: (NSString *) email password: (NSString *) password
 {
   [outProtocol writeMessageBeginWithName: @"signin" type: TMessageType_CALL sequenceID: 0];
   [outProtocol writeStructBeginWithName: @"signin_args"];
-  if (token != nil)  {
-    [outProtocol writeFieldBeginWithName: @"token" type: TType_STRING fieldID: 1];
-    [outProtocol writeString: token];
+  if (email != nil)  {
+    [outProtocol writeFieldBeginWithName: @"email" type: TType_STRING fieldID: 1];
+    [outProtocol writeString: email];
+    [outProtocol writeFieldEnd];
+  }
+  if (password != nil)  {
+    [outProtocol writeFieldBeginWithName: @"password" type: TType_STRING fieldID: 2];
+    [outProtocol writeString: password];
     [outProtocol writeFieldEnd];
   }
   [outProtocol writeFieldStop];
@@ -2998,9 +3062,9 @@
                                            reason: @"signin failed: unknown result"];
 }
 
-- (makcipeAPIUser *) signin: (NSString *) token
+- (makcipeAPIUser *) signin: (NSString *) email password: (NSString *) password
 {
-  [self send_signin : token];
+  [self send_signin : email password: password];
   return [self recv_signin];
 }
 
@@ -3262,7 +3326,7 @@
   [args read: inProtocol];
   [inProtocol readMessageEnd];
   makcipeAPISignupWithFacebook_result * result = [[makcipeAPISignupWithFacebook_result alloc] init];
-  [result setSuccess: [mService signupWithFacebook: [args fb_id] email: [args email] pic_url: [args pic_url]]];
+  [result setSuccess: [mService signupWithFacebook: [args fb_id] name: [args name] pic_url: [args pic_url]]];
   [outProtocol writeMessageBeginWithName: @"signupWithFacebook"
                                     type: TMessageType_REPLY
                               sequenceID: seqID];
@@ -3279,7 +3343,7 @@
   [args read: inProtocol];
   [inProtocol readMessageEnd];
   makcipeAPISignupWithKakao_result * result = [[makcipeAPISignupWithKakao_result alloc] init];
-  [result setSuccess: [mService signupWithKakao: [args ko_id] email: [args email] pic_url: [args pic_url]]];
+  [result setSuccess: [mService signupWithKakao: [args ko_id] name: [args name] pic_url: [args pic_url]]];
   [outProtocol writeMessageBeginWithName: @"signupWithKakao"
                                     type: TMessageType_REPLY
                               sequenceID: seqID];
@@ -3296,7 +3360,7 @@
   [args read: inProtocol];
   [inProtocol readMessageEnd];
   makcipeAPISignin_result * result = [[makcipeAPISignin_result alloc] init];
-  [result setSuccess: [mService signin: [args token]]];
+  [result setSuccess: [mService signin: [args email] password: [args password]]];
   [outProtocol writeMessageBeginWithName: @"signin"
                                     type: TMessageType_REPLY
                               sequenceID: seqID];
