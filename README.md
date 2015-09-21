@@ -1,15 +1,19 @@
 Settings
 --------------------------------------------
-[ Server Settings ]
-API Server HOST : dev.makcipe.com
-API Server PORT : 9090
-
 [ Platform ]
 ios 	->	thrift/gen-cocoa
 android ->	thrift/gen-java
 nodejs 	-> 	thrift/gen-nodejs
 
-[ API path name ]
+[ Server Settings ]
+API Server HOST : dev.makcipe.com
+API Server PORT : 9090
+
+[ thrift ]
+ - socket 통신 (not HTTP/HTTPS)
+ - Protocol : multiplexed with TBinaryProtocol
+
+[ API service name ]
 [   API   ]	: [  name  ]
  UserAPI 	:  UserAPI
  RecipeAPI 	:  RecipeAPI
