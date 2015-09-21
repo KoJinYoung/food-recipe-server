@@ -12,9 +12,9 @@ import java.util.HashMap;
 import org.apache.thrift.TEnum;
 
 public enum SIGNUP_STATUS implements org.apache.thrift.TEnum {
-  SIGNUP(0),
-  CERTIFICATED(1),
-  WITHDREW(2);
+  SIGNUP(1),
+  CERTIFICATED(2),
+  WITHDREW(3);
 
   private final int value;
 
@@ -35,11 +35,11 @@ public enum SIGNUP_STATUS implements org.apache.thrift.TEnum {
    */
   public static SIGNUP_STATUS findByValue(int value) { 
     switch (value) {
-      case 0:
-        return SIGNUP;
       case 1:
-        return CERTIFICATED;
+        return SIGNUP;
       case 2:
+        return CERTIFICATED;
+      case 3:
         return WITHDREW;
       default:
         return null;

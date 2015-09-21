@@ -9,9 +9,9 @@ typedef i64 long
 typedef i32 int
 
 enum SIGNUP_STATUS {
-	SIGNUP = 0,
-	CERTIFICATED = 1,
-	WITHDREW = 2
+	SIGNUP = 1,
+	CERTIFICATED = 2,
+	WITHDREW = 3
 }
 
 enum AUTH_METHOD {

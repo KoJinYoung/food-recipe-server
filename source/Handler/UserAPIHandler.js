@@ -35,7 +35,7 @@ var selectUser = function(method, mysql, value, callback) {
 					email as email, \
 					user_name as username, \
 					user_pic as pic, \
-					signup_status as signup_status \
+					signup_status+0 as signup_status \
 				FROM USER WHERE "
 
 	if (method == null)
@@ -46,6 +46,8 @@ var selectUser = function(method, mysql, value, callback) {
 		query = query + 'kakao = ' + mysql.escape(value)
 	else if (method == AUTH_METHOD.EMAIL)
 		query = query + 'email = ' + mysql.escape(value[0]) + ' AND password = ' + mysql.escape(value[1])
+
+	// console.log(query)
 
 	mysql.query(query, function(err, res) {
 
@@ -67,6 +69,10 @@ var selectUser = function(method, mysql, value, callback) {
 			resUser.email = userData.email
 			resUser.pic = userData.pic
 			resUser.signup_status = userData.signup_status
+
+			console.log(userData)
+
+			checkSignupMethod(resUser)
 
 			callback(null, resUser)
 		}
@@ -120,7 +126,7 @@ var func_SignUp = function(mysql, method, values, callback) {
 		query += ", user_pic = " + mysql.escape(values.user_pic)
 		query += ", signup_status = " + values.signup_status
 	} else if (method == AUTH_METHOD.KAKAO) {
-		query += " kakao " + mysql.escape(values.kakao)
+		query += " kakao = " + mysql.escape(values.kakao)
 		query += ", user_name = " + mysql.escape(values.user_name)
 		query += ", user_pic = " + mysql.escape(values.user_pic)
 		query += ", signup_status = " + values.signup_status
@@ -132,6 +138,8 @@ var func_SignUp = function(mysql, method, values, callback) {
 
 	query += ", create_time = " + dbConnector.currentUnixTimeQuery
 	query += ", update_time = " + dbConnector.currentUnixTimeQuery
+
+	// console.log(query)
 
 	mysql.query(query, function(err, res) {
 
@@ -174,7 +182,7 @@ var func_SignUp = function(mysql, method, values, callback) {
 			st_user.kakaoId = values.kakao
 			st_user.email = values.email
 			st_user.pic = values.user_pic
-			st_user.signup_status = values.signup_status
+			st_user.signup_status = SIGNUP_STATUS.SIGNUP
 
 			// login
 			func_SignIn(mysql, st_user, callback)
@@ -308,6 +316,7 @@ var userAPIHandler = {
 								mysql.rollback()
 								mysql.end()
 							} else {
+								checkSignupMethod(st_user)
 								callback(null, st_user)
 								mysql.end()
 							}
@@ -349,6 +358,7 @@ var userAPIHandler = {
 										mysql.rollback()
 										mysql.end()
 									} else {
+										checkSignupMethod(st_user)
 										callback(null, st_user)
 										mysql.end()
 									}
