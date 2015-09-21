@@ -10,7 +10,8 @@ typedef i32 int
 
 enum SIGNUP_STATUS {
 	SIGNUP = 0,
-	CERTIFICATED = 1
+	CERTIFICATED = 1,
+	WITHDREW = 2
 }
 
 enum AUTH_METHOD {
@@ -49,7 +50,7 @@ enum UserExCode{
 	INVALID = 0,
 	SERVER_ERROR = 1,
 	NOT_FOUND = 2,
-	DATA_EXISTS = 3,
+	DATA_EXISTS = 3
 }
 
 exception UserException{

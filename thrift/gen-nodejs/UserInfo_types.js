@@ -11,7 +11,8 @@ var Q = thrift.Q;
 var ttypes = module.exports = {};
 ttypes.SIGNUP_STATUS = {
   'SIGNUP' : 0,
-  'CERTIFICATED' : 1
+  'CERTIFICATED' : 1,
+  'WITHDREW' : 2
 };
 ttypes.AUTH_METHOD = {
   'FACEBOOK' : 1,

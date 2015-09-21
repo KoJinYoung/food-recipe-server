@@ -13,7 +13,8 @@ import org.apache.thrift.TEnum;
 
 public enum SIGNUP_STATUS implements org.apache.thrift.TEnum {
   SIGNUP(0),
-  CERTIFICATED(1);
+  CERTIFICATED(1),
+  WITHDREW(2);
 
   private final int value;
 
@@ -38,6 +39,8 @@ public enum SIGNUP_STATUS implements org.apache.thrift.TEnum {
         return SIGNUP;
       case 1:
         return CERTIFICATED;
+      case 2:
+        return WITHDREW;
       default:
         return null;
     }

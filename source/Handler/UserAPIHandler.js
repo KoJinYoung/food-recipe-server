@@ -34,7 +34,8 @@ var selectUser = function(method, mysql, value, callback) {
 					kakao as kakaoId, \
 					email as email, \
 					user_name as username, \
-					user_pic as pic \
+					user_pic as pic, \
+					signup_status as signup_status \
 				FROM USER WHERE "
 
 	if (method == null)
@@ -65,6 +66,7 @@ var selectUser = function(method, mysql, value, callback) {
 			resUser.kakaoId = userData.kakaoId
 			resUser.email = userData.email
 			resUser.pic = userData.pic
+			resUser.signup_status = userData.signup_status
 
 			callback(null, resUser)
 		}
@@ -116,13 +118,16 @@ var func_SignUp = function(mysql, method, values, callback) {
 		query += " facebook = " + mysql.escape(values.facebook)
 		query += ", user_name = " + mysql.escape(values.user_name)
 		query += ", user_pic = " + mysql.escape(values.user_pic)
+		query += ", signup_status = " + values.signup_status
 	} else if (method == AUTH_METHOD.KAKAO) {
 		query += " kakao " + mysql.escape(values.kakao)
 		query += ", user_name = " + mysql.escape(values.user_name)
 		query += ", user_pic = " + mysql.escape(values.user_pic)
+		query += ", signup_status = " + values.signup_status
 	} else {
 		query += " email = " + mysql.escape(values.email)
 		query += ", password = " + mysql.escape(values.password)
+		query += ", signup_status = " + values.signup_status
 	}
 
 	query += ", create_time = " + dbConnector.currentUnixTimeQuery
@@ -169,6 +174,7 @@ var func_SignUp = function(mysql, method, values, callback) {
 			st_user.kakaoId = values.kakao
 			st_user.email = values.email
 			st_user.pic = values.user_pic
+			st_user.signup_status = values.signup_status
 
 			// login
 			func_SignIn(mysql, st_user, callback)
@@ -197,7 +203,8 @@ var userAPIHandler = {
 
 		var values = {
 			email: email_,
-			password: password_
+			password: password_,
+			signup_status: SIGNUP_STATUS.SIGNUP
 		}
 
 		mysql.beginTransaction(function(err) {
@@ -237,7 +244,8 @@ var userAPIHandler = {
 		var values = {
 			facebook: fb_id,
 			user_name: name,
-			user_pic: pic_url
+			user_pic: pic_url,
+			signup_status: SIGNUP_STATUS.FACEBOOK
 		}
 
 		mysql.beginTransaction(function(err) {
@@ -277,7 +285,8 @@ var userAPIHandler = {
 		var values = {
 			kakao: ko_id,
 			user_name: name,
-			user_pic: pic_url
+			user_pic: pic_url,
+			signup_status: SIGNUP_STATUS.KAKAO
 		}
 
 		mysql.beginTransaction(function(err) {
