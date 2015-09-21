@@ -245,7 +245,7 @@ var userAPIHandler = {
 			facebook: fb_id,
 			user_name: name,
 			user_pic: pic_url,
-			signup_status: SIGNUP_STATUS.FACEBOOK
+			signup_status: SIGNUP_STATUS.CERTIFICATED
 		}
 
 		mysql.beginTransaction(function(err) {
@@ -286,7 +286,7 @@ var userAPIHandler = {
 			kakao: ko_id,
 			user_name: name,
 			user_pic: pic_url,
-			signup_status: SIGNUP_STATUS.KAKAO
+			signup_status: SIGNUP_STATUS.CERTIFICATED
 		}
 
 		mysql.beginTransaction(function(err) {
