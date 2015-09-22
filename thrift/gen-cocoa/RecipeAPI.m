@@ -397,17 +397,17 @@
 @end
 
 @interface makcipeAPIMake_All_Recipe_list_result : NSObject <TBase, NSCoding> {
-  makcipeAPIRecipe * __success;
+  NSMutableArray * __success;
 
   BOOL __success_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@property (nonatomic, retain, getter=success, setter=setSuccess:) makcipeAPIRecipe * success;
+@property (nonatomic, retain, getter=success, setter=setSuccess:) NSMutableArray * success;
 #endif
 
 - (id) init;
-- (id) initWithSuccess: (makcipeAPIRecipe *) success;
+- (id) initWithSuccess: (NSMutableArray *) success;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -415,8 +415,8 @@
 - (void) validate;
 
 #if !__has_feature(objc_arc)
-- (makcipeAPIRecipe *) success;
-- (void) setSuccess: (makcipeAPIRecipe *) success;
+- (NSMutableArray *) success;
+- (void) setSuccess: (NSMutableArray *) success;
 #endif
 - (BOOL) successIsSet;
 
@@ -432,7 +432,7 @@
   return self;
 }
 
-- (id) initWithSuccess: (makcipeAPIRecipe *) success
+- (id) initWithSuccess: (NSMutableArray *) success
 {
   self = [super init];
   __success = [success retain_stub];
@@ -465,11 +465,11 @@
   [super dealloc_stub];
 }
 
-- (makcipeAPIRecipe *) success {
+- (NSMutableArray *) success {
   return [[__success retain_stub] autorelease_stub];
 }
 
-- (void) setSuccess: (makcipeAPIRecipe *) success {
+- (void) setSuccess: (NSMutableArray *) success {
   [success retain_stub];
   [__success release_stub];
   __success = success;
@@ -502,9 +502,19 @@
     switch (fieldID)
     {
       case 0:
-        if (fieldType == TType_STRUCT) {
-          makcipeAPIRecipe *fieldValue = [[makcipeAPIRecipe alloc] init];
-          [fieldValue read: inProtocol];
+        if (fieldType == TType_LIST) {
+          int _size0;
+          [inProtocol readListBeginReturningElementType: NULL size: &_size0];
+          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size0];
+          int _i1;
+          for (_i1 = 0; _i1 < _size0; ++_i1)
+          {
+            makcipeAPIRecipe *_elem2 = [[makcipeAPIRecipe alloc] init];
+            [_elem2 read: inProtocol];
+            [fieldValue addObject: _elem2];
+            [_elem2 release_stub];
+          }
+          [inProtocol readListEnd];
           [self setSuccess: fieldValue];
           [fieldValue release_stub];
         } else { 
@@ -525,8 +535,16 @@
 
   if (__success_isset) {
     if (__success != nil) {
-      [outProtocol writeFieldBeginWithName: @"success" type: TType_STRUCT fieldID: 0];
-      [__success write: outProtocol];
+      [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
+      {
+        [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
+        int idx4;
+        for (idx4 = 0; idx4 < [__success count]; idx4++)
+        {
+          [[__success objectAtIndex: idx4] write: outProtocol];
+        }
+        [outProtocol writeListEnd];
+      }
       [outProtocol writeFieldEnd];
     }
   }
@@ -727,16 +745,16 @@
     {
       case 0:
         if (fieldType == TType_LIST) {
-          int _size0;
-          [inProtocol readListBeginReturningElementType: NULL size: &_size0];
-          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size0];
-          int _i1;
-          for (_i1 = 0; _i1 < _size0; ++_i1)
+          int _size5;
+          [inProtocol readListBeginReturningElementType: NULL size: &_size5];
+          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size5];
+          int _i6;
+          for (_i6 = 0; _i6 < _size5; ++_i6)
           {
-            makcipeAPIRecipe *_elem2 = [[makcipeAPIRecipe alloc] init];
-            [_elem2 read: inProtocol];
-            [fieldValue addObject: _elem2];
-            [_elem2 release_stub];
+            makcipeAPIRecipe *_elem7 = [[makcipeAPIRecipe alloc] init];
+            [_elem7 read: inProtocol];
+            [fieldValue addObject: _elem7];
+            [_elem7 release_stub];
           }
           [inProtocol readListEnd];
           [self setSuccess: fieldValue];
@@ -762,10 +780,10 @@
       [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-        int idx4;
-        for (idx4 = 0; idx4 < [__success count]; idx4++)
+        int idx9;
+        for (idx9 = 0; idx9 < [__success count]; idx9++)
         {
-          [[__success objectAtIndex: idx4] write: outProtocol];
+          [[__success objectAtIndex: idx9] write: outProtocol];
         }
         [outProtocol writeListEnd];
       }
@@ -969,16 +987,16 @@
     {
       case 0:
         if (fieldType == TType_LIST) {
-          int _size5;
-          [inProtocol readListBeginReturningElementType: NULL size: &_size5];
-          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size5];
-          int _i6;
-          for (_i6 = 0; _i6 < _size5; ++_i6)
+          int _size10;
+          [inProtocol readListBeginReturningElementType: NULL size: &_size10];
+          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size10];
+          int _i11;
+          for (_i11 = 0; _i11 < _size10; ++_i11)
           {
-            makcipeAPIRecipe *_elem7 = [[makcipeAPIRecipe alloc] init];
-            [_elem7 read: inProtocol];
-            [fieldValue addObject: _elem7];
-            [_elem7 release_stub];
+            makcipeAPIRecipe *_elem12 = [[makcipeAPIRecipe alloc] init];
+            [_elem12 read: inProtocol];
+            [fieldValue addObject: _elem12];
+            [_elem12 release_stub];
           }
           [inProtocol readListEnd];
           [self setSuccess: fieldValue];
@@ -1004,10 +1022,10 @@
       [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-        int idx9;
-        for (idx9 = 0; idx9 < [__success count]; idx9++)
+        int idx14;
+        for (idx14 = 0; idx14 < [__success count]; idx14++)
         {
-          [[__success objectAtIndex: idx9] write: outProtocol];
+          [[__success objectAtIndex: idx14] write: outProtocol];
         }
         [outProtocol writeListEnd];
       }
@@ -1288,16 +1306,16 @@
     {
       case 0:
         if (fieldType == TType_LIST) {
-          int _size10;
-          [inProtocol readListBeginReturningElementType: NULL size: &_size10];
-          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size10];
-          int _i11;
-          for (_i11 = 0; _i11 < _size10; ++_i11)
+          int _size15;
+          [inProtocol readListBeginReturningElementType: NULL size: &_size15];
+          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size15];
+          int _i16;
+          for (_i16 = 0; _i16 < _size15; ++_i16)
           {
-            makcipeAPIRecipe *_elem12 = [[makcipeAPIRecipe alloc] init];
-            [_elem12 read: inProtocol];
-            [fieldValue addObject: _elem12];
-            [_elem12 release_stub];
+            makcipeAPIRecipe *_elem17 = [[makcipeAPIRecipe alloc] init];
+            [_elem17 read: inProtocol];
+            [fieldValue addObject: _elem17];
+            [_elem17 release_stub];
           }
           [inProtocol readListEnd];
           [self setSuccess: fieldValue];
@@ -1323,10 +1341,10 @@
       [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-        int idx14;
-        for (idx14 = 0; idx14 < [__success count]; idx14++)
+        int idx19;
+        for (idx19 = 0; idx19 < [__success count]; idx19++)
         {
-          [[__success objectAtIndex: idx14] write: outProtocol];
+          [[__success objectAtIndex: idx19] write: outProtocol];
         }
         [outProtocol writeListEnd];
       }
@@ -1422,7 +1440,7 @@
   [[outProtocol transport] flush];
 }
 
-- (makcipeAPIRecipe *) recv_make_All_Recipe_list
+- (NSMutableArray *) recv_make_All_Recipe_list
 {
   int msgType = 0;
   [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
@@ -1441,7 +1459,7 @@
                                            reason: @"make_All_Recipe_list failed: unknown result"];
 }
 
-- (makcipeAPIRecipe *) make_All_Recipe_list
+- (NSMutableArray *) make_All_Recipe_list
 {
   [self send_make_All_Recipe_list];
   return [self recv_make_All_Recipe_list];

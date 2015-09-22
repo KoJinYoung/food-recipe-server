@@ -3,15 +3,16 @@
   "decription": "Makcipe server with thrift",
   "version": "0.0.1",
   "private": true,
-  "scripts" : {
-  	"start" : "node thriftServer.js",
+  "scripts": {
+    "start": "node thriftServer.js",
     "monitor": "nodemon thriftServer.js"
-  	},
+  },
   "dependencies": {
     "express": "^4.13.3",
-    "mysql": "^2.9.0",
-    "thrift": "^0.9.2",
+    "list": "0.0.4",
     "lodash": "^3.10.1",
-    "secure-random-string": "^1.0.0"
+    "mysql": "^2.9.0",
+    "secure-random-string": "^1.0.0",
+    "thrift": "^0.9.2"
   }
 }
