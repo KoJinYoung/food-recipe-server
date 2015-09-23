@@ -427,7 +427,7 @@ var userAPIHandler = {
 			} else {
 				selectUser(null, mysql, uid, function(err, resUser) {
 					resUser.token = token
-					callback(err, res)
+					callback(err, resUser)
 				})
 			}
 			mysql.end()
