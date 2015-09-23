@@ -30,23 +30,25 @@ var Ex_DATA_EXIST = {
 var recipeAPIHandler = {
 	// search
 	getAll: function(table, callback) {
+		console.log("server side getall()")
 		var data = 'test API';
 		callback(null, data);
 	},
 
 	make_All_Recipe_list: function(callback) {
 
+		console.log("server side make_all_recipe_list()")
+
 		var mysql = dbConnector.connect()
 
 		if(mysql){
 
 			//dev
-			var query = "select USER.u_id, USER.u_pic, USER.name, RECIPE.r_id, RECIPE.r_name, RECIPE.r_contents, RECIPE.r_pic";		
+			var query = 'select USER.u_id, USER.user_pic, USER.user_name, RECIPE.r_id, RECIPE.r_name, RECIPE.r_contents, RECIPE.r_pic from RECIPE INNER JOIN USER ON RECIPE.USER_u_id = USER.u_id'		
 			//localhost	
 			//var query = "select student.name, book.b_name, book.day from student INNER JOIN book ON student.no = book.f_no"
-			var resList = new list();
 
-			mysql.query(query, function(err, res,row){
+			mysql.query(query, function(err, res, row){
 				if(err){
 					err = new Recipe_ttypes.RecipeException(Ex_SERVER_ERROR)
 					callback(err, null);
@@ -56,18 +58,20 @@ var recipeAPIHandler = {
 					callback(err, null);
 				}
 				else{
+					var resList = []// new list()
+
+					res.forEach(function(resData){
+						var resRecipe = new Recipe_ttypes.Recipe()
+                                                resRecipe.recipeId = resData.r_id
+                                                resRecipe.recipeName = resData.r_name
+                                                resRecipe.recipePic = resData.r_pic
+                                                resRecipe.recipeComment = resData.r_contents
+                                                resRecipe.writerId = resData.u_id
+                                                resRecipe.writerName = resData.user_name
+                                                resRecipe.writerPic = resData.user_pic
+                                                resList.push(resRecipe)
+					});
 					
-					var resRecipe = new Recipe_ttypes.Recipe()
-					
-					resRecipe.recipeId = res.r_id
-					resRecipe.recipeName = res.r_name 
-					resRecipe.recipePic = res.r_pic
-					resRecipe.recipeComment = res.r_contents
-					resRecipe.writerId = res.u_id
-					resRecipe.writerName = res.name
-					resRecipe.writerPic = res.u_pic			
-					
-					resList.add(resRecipe)
 					callback(null, resList)
 				}
 			})

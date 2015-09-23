@@ -28,13 +28,15 @@
   return self;
 }
 
-- (id) initWithName: (NSString *) name id: (NSString *) id
+- (id) initWithName: (NSString *) name id: (NSString *) id unit: (NSString *) unit
 {
   self = [super init];
   __name = [name retain_stub];
   __name_isset = YES;
   __id = [id retain_stub];
   __id_isset = YES;
+  __unit = [unit retain_stub];
+  __unit_isset = YES;
   return self;
 }
 
@@ -51,6 +53,11 @@
     __id = [[decoder decodeObjectForKey: @"id"] retain_stub];
     __id_isset = YES;
   }
+  if ([decoder containsValueForKey: @"unit"])
+  {
+    __unit = [[decoder decodeObjectForKey: @"unit"] retain_stub];
+    __unit_isset = YES;
+  }
   return self;
 }
 
@@ -64,12 +71,17 @@
   {
     [encoder encodeObject: __id forKey: @"id"];
   }
+  if (__unit_isset)
+  {
+    [encoder encodeObject: __unit forKey: @"unit"];
+  }
 }
 
 - (void) dealloc
 {
   [__name release_stub];
   [__id release_stub];
+  [__unit release_stub];
   [super dealloc_stub];
 }
 
@@ -115,6 +127,27 @@
   __id_isset = NO;
 }
 
+- (NSString *) unit {
+  return [[__unit retain_stub] autorelease_stub];
+}
+
+- (void) setUnit: (NSString *) unit {
+  [unit retain_stub];
+  [__unit release_stub];
+  __unit = unit;
+  __unit_isset = YES;
+}
+
+- (BOOL) unitIsSet {
+  return __unit_isset;
+}
+
+- (void) unsetUnit {
+  [__unit release_stub];
+  __unit = nil;
+  __unit_isset = NO;
+}
+
 - (void) read: (id <TProtocol>) inProtocol
 {
   NSString * fieldName;
@@ -146,6 +179,14 @@
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
+      case 3:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setUnit: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
       default:
         [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         break;
@@ -171,6 +212,13 @@
       [outProtocol writeFieldEnd];
     }
   }
+  if (__unit_isset) {
+    if (__unit != nil) {
+      [outProtocol writeFieldBeginWithName: @"unit" type: TType_STRING fieldID: 3];
+      [outProtocol writeString: __unit];
+      [outProtocol writeFieldEnd];
+    }
+  }
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
 }
@@ -185,278 +233,8 @@
   [ms appendFormat: @"\"%@\"", __name];
   [ms appendString: @",id:"];
   [ms appendFormat: @"\"%@\"", __id];
-  [ms appendString: @")"];
-  return [NSString stringWithString: ms];
-}
-
-@end
-
-@implementation makcipeAPIRecipeInfo
-
-- (id) init
-{
-  self = [super init];
-#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-#endif
-  return self;
-}
-
-- (id) initWithCalories: (makcipeAPIint) calories level: (int) level cookTime: (makcipeAPIint) cookTime ingredient: (NSMutableArray *) ingredient
-{
-  self = [super init];
-  __calories = calories;
-  __calories_isset = YES;
-  __level = level;
-  __level_isset = YES;
-  __cookTime = cookTime;
-  __cookTime_isset = YES;
-  __ingredient = [ingredient retain_stub];
-  __ingredient_isset = YES;
-  return self;
-}
-
-- (id) initWithCoder: (NSCoder *) decoder
-{
-  self = [super init];
-  if ([decoder containsValueForKey: @"calories"])
-  {
-    __calories = [decoder decodeInt32ForKey: @"calories"];
-    __calories_isset = YES;
-  }
-  if ([decoder containsValueForKey: @"level"])
-  {
-    __level = [decoder decodeIntForKey: @"level"];
-    __level_isset = YES;
-  }
-  if ([decoder containsValueForKey: @"cookTime"])
-  {
-    __cookTime = [decoder decodeInt32ForKey: @"cookTime"];
-    __cookTime_isset = YES;
-  }
-  if ([decoder containsValueForKey: @"ingredient"])
-  {
-    __ingredient = [[decoder decodeObjectForKey: @"ingredient"] retain_stub];
-    __ingredient_isset = YES;
-  }
-  return self;
-}
-
-- (void) encodeWithCoder: (NSCoder *) encoder
-{
-  if (__calories_isset)
-  {
-    [encoder encodeInt32: __calories forKey: @"calories"];
-  }
-  if (__level_isset)
-  {
-    [encoder encodeInt: __level forKey: @"level"];
-  }
-  if (__cookTime_isset)
-  {
-    [encoder encodeInt32: __cookTime forKey: @"cookTime"];
-  }
-  if (__ingredient_isset)
-  {
-    [encoder encodeObject: __ingredient forKey: @"ingredient"];
-  }
-}
-
-- (void) dealloc
-{
-  [__ingredient release_stub];
-  [super dealloc_stub];
-}
-
-- (int32_t) calories {
-  return __calories;
-}
-
-- (void) setCalories: (int32_t) calories {
-  __calories = calories;
-  __calories_isset = YES;
-}
-
-- (BOOL) caloriesIsSet {
-  return __calories_isset;
-}
-
-- (void) unsetCalories {
-  __calories_isset = NO;
-}
-
-- (int) level {
-  return __level;
-}
-
-- (void) setLevel: (int) level {
-  __level = level;
-  __level_isset = YES;
-}
-
-- (BOOL) levelIsSet {
-  return __level_isset;
-}
-
-- (void) unsetLevel {
-  __level_isset = NO;
-}
-
-- (int32_t) cookTime {
-  return __cookTime;
-}
-
-- (void) setCookTime: (int32_t) cookTime {
-  __cookTime = cookTime;
-  __cookTime_isset = YES;
-}
-
-- (BOOL) cookTimeIsSet {
-  return __cookTime_isset;
-}
-
-- (void) unsetCookTime {
-  __cookTime_isset = NO;
-}
-
-- (NSMutableArray *) ingredient {
-  return [[__ingredient retain_stub] autorelease_stub];
-}
-
-- (void) setIngredient: (NSMutableArray *) ingredient {
-  [ingredient retain_stub];
-  [__ingredient release_stub];
-  __ingredient = ingredient;
-  __ingredient_isset = YES;
-}
-
-- (BOOL) ingredientIsSet {
-  return __ingredient_isset;
-}
-
-- (void) unsetIngredient {
-  [__ingredient release_stub];
-  __ingredient = nil;
-  __ingredient_isset = NO;
-}
-
-- (void) read: (id <TProtocol>) inProtocol
-{
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
-    {
-      case 1:
-        if (fieldType == TType_I32) {
-          int32_t fieldValue = [inProtocol readI32];
-          [self setCalories: fieldValue];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      case 2:
-        if (fieldType == TType_I32) {
-          int fieldValue = [inProtocol readI32];
-          [self setLevel: fieldValue];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      case 3:
-        if (fieldType == TType_I32) {
-          int32_t fieldValue = [inProtocol readI32];
-          [self setCookTime: fieldValue];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      case 4:
-        if (fieldType == TType_LIST) {
-          int _size0;
-          [inProtocol readListBeginReturningElementType: NULL size: &_size0];
-          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size0];
-          int _i1;
-          for (_i1 = 0; _i1 < _size0; ++_i1)
-          {
-            makcipeAPIIngredientInfo *_elem2 = [[makcipeAPIIngredientInfo alloc] init];
-            [_elem2 read: inProtocol];
-            [fieldValue addObject: _elem2];
-            [_elem2 release_stub];
-          }
-          [inProtocol readListEnd];
-          [self setIngredient: fieldValue];
-          [fieldValue release_stub];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
-    }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
-}
-
-- (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"RecipeInfo"];
-  if (__calories_isset) {
-    [outProtocol writeFieldBeginWithName: @"calories" type: TType_I32 fieldID: 1];
-    [outProtocol writeI32: __calories];
-    [outProtocol writeFieldEnd];
-  }
-  if (__level_isset) {
-    [outProtocol writeFieldBeginWithName: @"level" type: TType_I32 fieldID: 2];
-    [outProtocol writeI32: __level];
-    [outProtocol writeFieldEnd];
-  }
-  if (__cookTime_isset) {
-    [outProtocol writeFieldBeginWithName: @"cookTime" type: TType_I32 fieldID: 3];
-    [outProtocol writeI32: __cookTime];
-    [outProtocol writeFieldEnd];
-  }
-  if (__ingredient_isset) {
-    if (__ingredient != nil) {
-      [outProtocol writeFieldBeginWithName: @"ingredient" type: TType_LIST fieldID: 4];
-      {
-        [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__ingredient count]];
-        int idx4;
-        for (idx4 = 0; idx4 < [__ingredient count]; idx4++)
-        {
-          [[__ingredient objectAtIndex: idx4] write: outProtocol];
-        }
-        [outProtocol writeListEnd];
-      }
-      [outProtocol writeFieldEnd];
-    }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-}
-
-- (void) validate {
-  // check for required fields
-}
-
-- (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"makcipeAPIRecipeInfo("];
-  [ms appendString: @"calories:"];
-  [ms appendFormat: @"%i", __calories];
-  [ms appendString: @",level:"];
-  [ms appendFormat: @"%i", __level];
-  [ms appendString: @",cookTime:"];
-  [ms appendFormat: @"%i", __cookTime];
-  [ms appendString: @",ingredient:"];
-  [ms appendFormat: @"%@", __ingredient];
+  [ms appendString: @",unit:"];
+  [ms appendFormat: @"\"%@\"", __unit];
   [ms appendString: @")"];
   return [NSString stringWithString: ms];
 }
@@ -473,7 +251,7 @@
   return self;
 }
 
-- (id) initWithRecipeId: (makcipeAPIint) recipeId writerId: (makcipeAPIint) writerId writerPic: (NSString *) writerPic writerName: (NSString *) writerName recipeName: (NSString *) recipeName recipePic: (NSString *) recipePic recipeComment: (NSString *) recipeComment recipeInfo: (makcipeAPIRecipeInfo *) recipeInfo recipeLiked: (BOOL) recipeLiked recipeType: (int) recipeType
+- (id) initWithRecipeId: (makcipeAPIint) recipeId writerId: (makcipeAPIint) writerId writerPic: (NSString *) writerPic writerName: (NSString *) writerName recipeName: (NSString *) recipeName recipePic: (NSString *) recipePic recipeComment: (NSString *) recipeComment calories: (makcipeAPIint) calories level: (int) level cookTime: (makcipeAPIint) cookTime recipeLiked: (BOOL) recipeLiked likeCount: (makcipeAPIint) likeCount ingredient: (NSMutableArray *) ingredient
 {
   self = [super init];
   __recipeId = recipeId;
@@ -490,12 +268,18 @@
   __recipePic_isset = YES;
   __recipeComment = [recipeComment retain_stub];
   __recipeComment_isset = YES;
-  __recipeInfo = [recipeInfo retain_stub];
-  __recipeInfo_isset = YES;
+  __calories = calories;
+  __calories_isset = YES;
+  __level = level;
+  __level_isset = YES;
+  __cookTime = cookTime;
+  __cookTime_isset = YES;
   __recipeLiked = recipeLiked;
   __recipeLiked_isset = YES;
-  __recipeType = recipeType;
-  __recipeType_isset = YES;
+  __likeCount = likeCount;
+  __likeCount_isset = YES;
+  __ingredient = [ingredient retain_stub];
+  __ingredient_isset = YES;
   return self;
 }
 
@@ -537,20 +321,35 @@
     __recipeComment = [[decoder decodeObjectForKey: @"recipeComment"] retain_stub];
     __recipeComment_isset = YES;
   }
-  if ([decoder containsValueForKey: @"recipeInfo"])
+  if ([decoder containsValueForKey: @"calories"])
   {
-    __recipeInfo = [[decoder decodeObjectForKey: @"recipeInfo"] retain_stub];
-    __recipeInfo_isset = YES;
+    __calories = [decoder decodeInt32ForKey: @"calories"];
+    __calories_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"level"])
+  {
+    __level = [decoder decodeIntForKey: @"level"];
+    __level_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"cookTime"])
+  {
+    __cookTime = [decoder decodeInt32ForKey: @"cookTime"];
+    __cookTime_isset = YES;
   }
   if ([decoder containsValueForKey: @"recipeLiked"])
   {
     __recipeLiked = [decoder decodeBoolForKey: @"recipeLiked"];
     __recipeLiked_isset = YES;
   }
-  if ([decoder containsValueForKey: @"recipeType"])
+  if ([decoder containsValueForKey: @"likeCount"])
   {
-    __recipeType = [decoder decodeIntForKey: @"recipeType"];
-    __recipeType_isset = YES;
+    __likeCount = [decoder decodeInt32ForKey: @"likeCount"];
+    __likeCount_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"ingredient"])
+  {
+    __ingredient = [[decoder decodeObjectForKey: @"ingredient"] retain_stub];
+    __ingredient_isset = YES;
   }
   return self;
 }
@@ -585,17 +384,29 @@
   {
     [encoder encodeObject: __recipeComment forKey: @"recipeComment"];
   }
-  if (__recipeInfo_isset)
+  if (__calories_isset)
   {
-    [encoder encodeObject: __recipeInfo forKey: @"recipeInfo"];
+    [encoder encodeInt32: __calories forKey: @"calories"];
+  }
+  if (__level_isset)
+  {
+    [encoder encodeInt: __level forKey: @"level"];
+  }
+  if (__cookTime_isset)
+  {
+    [encoder encodeInt32: __cookTime forKey: @"cookTime"];
   }
   if (__recipeLiked_isset)
   {
     [encoder encodeBool: __recipeLiked forKey: @"recipeLiked"];
   }
-  if (__recipeType_isset)
+  if (__likeCount_isset)
   {
-    [encoder encodeInt: __recipeType forKey: @"recipeType"];
+    [encoder encodeInt32: __likeCount forKey: @"likeCount"];
+  }
+  if (__ingredient_isset)
+  {
+    [encoder encodeObject: __ingredient forKey: @"ingredient"];
   }
 }
 
@@ -606,7 +417,7 @@
   [__recipeName release_stub];
   [__recipePic release_stub];
   [__recipeComment release_stub];
-  [__recipeInfo release_stub];
+  [__ingredient release_stub];
   [super dealloc_stub];
 }
 
@@ -749,25 +560,55 @@
   __recipeComment_isset = NO;
 }
 
-- (makcipeAPIRecipeInfo *) recipeInfo {
-  return [[__recipeInfo retain_stub] autorelease_stub];
+- (int32_t) calories {
+  return __calories;
 }
 
-- (void) setRecipeInfo: (makcipeAPIRecipeInfo *) recipeInfo {
-  [recipeInfo retain_stub];
-  [__recipeInfo release_stub];
-  __recipeInfo = recipeInfo;
-  __recipeInfo_isset = YES;
+- (void) setCalories: (int32_t) calories {
+  __calories = calories;
+  __calories_isset = YES;
 }
 
-- (BOOL) recipeInfoIsSet {
-  return __recipeInfo_isset;
+- (BOOL) caloriesIsSet {
+  return __calories_isset;
 }
 
-- (void) unsetRecipeInfo {
-  [__recipeInfo release_stub];
-  __recipeInfo = nil;
-  __recipeInfo_isset = NO;
+- (void) unsetCalories {
+  __calories_isset = NO;
+}
+
+- (int) level {
+  return __level;
+}
+
+- (void) setLevel: (int) level {
+  __level = level;
+  __level_isset = YES;
+}
+
+- (BOOL) levelIsSet {
+  return __level_isset;
+}
+
+- (void) unsetLevel {
+  __level_isset = NO;
+}
+
+- (int32_t) cookTime {
+  return __cookTime;
+}
+
+- (void) setCookTime: (int32_t) cookTime {
+  __cookTime = cookTime;
+  __cookTime_isset = YES;
+}
+
+- (BOOL) cookTimeIsSet {
+  return __cookTime_isset;
+}
+
+- (void) unsetCookTime {
+  __cookTime_isset = NO;
 }
 
 - (BOOL) recipeLiked {
@@ -787,21 +628,42 @@
   __recipeLiked_isset = NO;
 }
 
-- (int) recipeType {
-  return __recipeType;
+- (int32_t) likeCount {
+  return __likeCount;
 }
 
-- (void) setRecipeType: (int) recipeType {
-  __recipeType = recipeType;
-  __recipeType_isset = YES;
+- (void) setLikeCount: (int32_t) likeCount {
+  __likeCount = likeCount;
+  __likeCount_isset = YES;
 }
 
-- (BOOL) recipeTypeIsSet {
-  return __recipeType_isset;
+- (BOOL) likeCountIsSet {
+  return __likeCount_isset;
 }
 
-- (void) unsetRecipeType {
-  __recipeType_isset = NO;
+- (void) unsetLikeCount {
+  __likeCount_isset = NO;
+}
+
+- (NSMutableArray *) ingredient {
+  return [[__ingredient retain_stub] autorelease_stub];
+}
+
+- (void) setIngredient: (NSMutableArray *) ingredient {
+  [ingredient retain_stub];
+  [__ingredient release_stub];
+  __ingredient = ingredient;
+  __ingredient_isset = YES;
+}
+
+- (BOOL) ingredientIsSet {
+  return __ingredient_isset;
+}
+
+- (void) unsetIngredient {
+  [__ingredient release_stub];
+  __ingredient = nil;
+  __ingredient_isset = NO;
 }
 
 - (void) read: (id <TProtocol>) inProtocol
@@ -876,16 +738,30 @@
         }
         break;
       case 8:
-        if (fieldType == TType_STRUCT) {
-          makcipeAPIRecipeInfo *fieldValue = [[makcipeAPIRecipeInfo alloc] init];
-          [fieldValue read: inProtocol];
-          [self setRecipeInfo: fieldValue];
-          [fieldValue release_stub];
+        if (fieldType == TType_I32) {
+          int32_t fieldValue = [inProtocol readI32];
+          [self setCalories: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
       case 9:
+        if (fieldType == TType_I32) {
+          int fieldValue = [inProtocol readI32];
+          [self setLevel: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 10:
+        if (fieldType == TType_I32) {
+          int32_t fieldValue = [inProtocol readI32];
+          [self setCookTime: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 11:
         if (fieldType == TType_BOOL) {
           BOOL fieldValue = [inProtocol readBool];
           [self setRecipeLiked: fieldValue];
@@ -893,10 +769,30 @@
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
-      case 10:
+      case 12:
         if (fieldType == TType_I32) {
-          int fieldValue = [inProtocol readI32];
-          [self setRecipeType: fieldValue];
+          int32_t fieldValue = [inProtocol readI32];
+          [self setLikeCount: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 13:
+        if (fieldType == TType_LIST) {
+          int _size0;
+          [inProtocol readListBeginReturningElementType: NULL size: &_size0];
+          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size0];
+          int _i1;
+          for (_i1 = 0; _i1 < _size0; ++_i1)
+          {
+            makcipeAPIIngredientInfo *_elem2 = [[makcipeAPIIngredientInfo alloc] init];
+            [_elem2 read: inProtocol];
+            [fieldValue addObject: _elem2];
+            [_elem2 release_stub];
+          }
+          [inProtocol readListEnd];
+          [self setIngredient: fieldValue];
+          [fieldValue release_stub];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
@@ -957,22 +853,45 @@
       [outProtocol writeFieldEnd];
     }
   }
-  if (__recipeInfo_isset) {
-    if (__recipeInfo != nil) {
-      [outProtocol writeFieldBeginWithName: @"recipeInfo" type: TType_STRUCT fieldID: 8];
-      [__recipeInfo write: outProtocol];
-      [outProtocol writeFieldEnd];
-    }
+  if (__calories_isset) {
+    [outProtocol writeFieldBeginWithName: @"calories" type: TType_I32 fieldID: 8];
+    [outProtocol writeI32: __calories];
+    [outProtocol writeFieldEnd];
+  }
+  if (__level_isset) {
+    [outProtocol writeFieldBeginWithName: @"level" type: TType_I32 fieldID: 9];
+    [outProtocol writeI32: __level];
+    [outProtocol writeFieldEnd];
+  }
+  if (__cookTime_isset) {
+    [outProtocol writeFieldBeginWithName: @"cookTime" type: TType_I32 fieldID: 10];
+    [outProtocol writeI32: __cookTime];
+    [outProtocol writeFieldEnd];
   }
   if (__recipeLiked_isset) {
-    [outProtocol writeFieldBeginWithName: @"recipeLiked" type: TType_BOOL fieldID: 9];
+    [outProtocol writeFieldBeginWithName: @"recipeLiked" type: TType_BOOL fieldID: 11];
     [outProtocol writeBool: __recipeLiked];
     [outProtocol writeFieldEnd];
   }
-  if (__recipeType_isset) {
-    [outProtocol writeFieldBeginWithName: @"recipeType" type: TType_I32 fieldID: 10];
-    [outProtocol writeI32: __recipeType];
+  if (__likeCount_isset) {
+    [outProtocol writeFieldBeginWithName: @"likeCount" type: TType_I32 fieldID: 12];
+    [outProtocol writeI32: __likeCount];
     [outProtocol writeFieldEnd];
+  }
+  if (__ingredient_isset) {
+    if (__ingredient != nil) {
+      [outProtocol writeFieldBeginWithName: @"ingredient" type: TType_LIST fieldID: 13];
+      {
+        [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__ingredient count]];
+        int idx4;
+        for (idx4 = 0; idx4 < [__ingredient count]; idx4++)
+        {
+          [[__ingredient objectAtIndex: idx4] write: outProtocol];
+        }
+        [outProtocol writeListEnd];
+      }
+      [outProtocol writeFieldEnd];
+    }
   }
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
@@ -998,12 +917,18 @@
   [ms appendFormat: @"\"%@\"", __recipePic];
   [ms appendString: @",recipeComment:"];
   [ms appendFormat: @"\"%@\"", __recipeComment];
-  [ms appendString: @",recipeInfo:"];
-  [ms appendFormat: @"%@", __recipeInfo];
+  [ms appendString: @",calories:"];
+  [ms appendFormat: @"%i", __calories];
+  [ms appendString: @",level:"];
+  [ms appendFormat: @"%i", __level];
+  [ms appendString: @",cookTime:"];
+  [ms appendFormat: @"%i", __cookTime];
   [ms appendString: @",recipeLiked:"];
   [ms appendFormat: @"%i", __recipeLiked];
-  [ms appendString: @",recipeType:"];
-  [ms appendFormat: @"%i", __recipeType];
+  [ms appendString: @",likeCount:"];
+  [ms appendFormat: @"%i", __likeCount];
+  [ms appendString: @",ingredient:"];
+  [ms appendFormat: @"%@", __ingredient];
   [ms appendString: @")"];
   return [NSString stringWithString: ms];
 }

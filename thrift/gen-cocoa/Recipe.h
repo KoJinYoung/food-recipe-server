@@ -42,18 +42,21 @@ typedef int32_t makcipeAPIint;
 @interface makcipeAPIIngredientInfo : NSObject <TBase, NSCoding> {
   NSString * __name;
   NSString * __id;
+  NSString * __unit;
 
   BOOL __name_isset;
   BOOL __id_isset;
+  BOOL __unit_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 @property (nonatomic, retain, getter=name, setter=setName:) NSString * name;
 @property (nonatomic, retain, getter=id, setter=setId:) NSString * id;
+@property (nonatomic, retain, getter=unit, setter=setUnit:) NSString * unit;
 #endif
 
 - (id) init;
-- (id) initWithName: (NSString *) name id: (NSString *) id;
+- (id) initWithName: (NSString *) name id: (NSString *) id unit: (NSString *) unit;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -72,58 +75,11 @@ typedef int32_t makcipeAPIint;
 #endif
 - (BOOL) idIsSet;
 
-@end
-
-@interface makcipeAPIRecipeInfo : NSObject <TBase, NSCoding> {
-  makcipeAPIint __calories;
-  int __level;
-  makcipeAPIint __cookTime;
-  NSMutableArray * __ingredient;
-
-  BOOL __calories_isset;
-  BOOL __level_isset;
-  BOOL __cookTime_isset;
-  BOOL __ingredient_isset;
-}
-
-#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@property (nonatomic, getter=calories, setter=setCalories:) makcipeAPIint calories;
-@property (nonatomic, getter=level, setter=setLevel:) int level;
-@property (nonatomic, getter=cookTime, setter=setCookTime:) makcipeAPIint cookTime;
-@property (nonatomic, retain, getter=ingredient, setter=setIngredient:) NSMutableArray * ingredient;
-#endif
-
-- (id) init;
-- (id) initWithCalories: (makcipeAPIint) calories level: (int) level cookTime: (makcipeAPIint) cookTime ingredient: (NSMutableArray *) ingredient;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
-
-- (void) validate;
-
 #if !__has_feature(objc_arc)
-- (makcipeAPIint) calories;
-- (void) setCalories: (makcipeAPIint) calories;
+- (NSString *) unit;
+- (void) setUnit: (NSString *) unit;
 #endif
-- (BOOL) caloriesIsSet;
-
-#if !__has_feature(objc_arc)
-- (int) level;
-- (void) setLevel: (int) level;
-#endif
-- (BOOL) levelIsSet;
-
-#if !__has_feature(objc_arc)
-- (makcipeAPIint) cookTime;
-- (void) setCookTime: (makcipeAPIint) cookTime;
-#endif
-- (BOOL) cookTimeIsSet;
-
-#if !__has_feature(objc_arc)
-- (NSMutableArray *) ingredient;
-- (void) setIngredient: (NSMutableArray *) ingredient;
-#endif
-- (BOOL) ingredientIsSet;
+- (BOOL) unitIsSet;
 
 @end
 
@@ -135,9 +91,12 @@ typedef int32_t makcipeAPIint;
   NSString * __recipeName;
   NSString * __recipePic;
   NSString * __recipeComment;
-  makcipeAPIRecipeInfo * __recipeInfo;
+  makcipeAPIint __calories;
+  int __level;
+  makcipeAPIint __cookTime;
   BOOL __recipeLiked;
-  int __recipeType;
+  makcipeAPIint __likeCount;
+  NSMutableArray * __ingredient;
 
   BOOL __recipeId_isset;
   BOOL __writerId_isset;
@@ -146,9 +105,12 @@ typedef int32_t makcipeAPIint;
   BOOL __recipeName_isset;
   BOOL __recipePic_isset;
   BOOL __recipeComment_isset;
-  BOOL __recipeInfo_isset;
+  BOOL __calories_isset;
+  BOOL __level_isset;
+  BOOL __cookTime_isset;
   BOOL __recipeLiked_isset;
-  BOOL __recipeType_isset;
+  BOOL __likeCount_isset;
+  BOOL __ingredient_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -159,13 +121,16 @@ typedef int32_t makcipeAPIint;
 @property (nonatomic, retain, getter=recipeName, setter=setRecipeName:) NSString * recipeName;
 @property (nonatomic, retain, getter=recipePic, setter=setRecipePic:) NSString * recipePic;
 @property (nonatomic, retain, getter=recipeComment, setter=setRecipeComment:) NSString * recipeComment;
-@property (nonatomic, retain, getter=recipeInfo, setter=setRecipeInfo:) makcipeAPIRecipeInfo * recipeInfo;
+@property (nonatomic, getter=calories, setter=setCalories:) makcipeAPIint calories;
+@property (nonatomic, getter=level, setter=setLevel:) int level;
+@property (nonatomic, getter=cookTime, setter=setCookTime:) makcipeAPIint cookTime;
 @property (nonatomic, getter=recipeLiked, setter=setRecipeLiked:) BOOL recipeLiked;
-@property (nonatomic, getter=recipeType, setter=setRecipeType:) int recipeType;
+@property (nonatomic, getter=likeCount, setter=setLikeCount:) makcipeAPIint likeCount;
+@property (nonatomic, retain, getter=ingredient, setter=setIngredient:) NSMutableArray * ingredient;
 #endif
 
 - (id) init;
-- (id) initWithRecipeId: (makcipeAPIint) recipeId writerId: (makcipeAPIint) writerId writerPic: (NSString *) writerPic writerName: (NSString *) writerName recipeName: (NSString *) recipeName recipePic: (NSString *) recipePic recipeComment: (NSString *) recipeComment recipeInfo: (makcipeAPIRecipeInfo *) recipeInfo recipeLiked: (BOOL) recipeLiked recipeType: (int) recipeType;
+- (id) initWithRecipeId: (makcipeAPIint) recipeId writerId: (makcipeAPIint) writerId writerPic: (NSString *) writerPic writerName: (NSString *) writerName recipeName: (NSString *) recipeName recipePic: (NSString *) recipePic recipeComment: (NSString *) recipeComment calories: (makcipeAPIint) calories level: (int) level cookTime: (makcipeAPIint) cookTime recipeLiked: (BOOL) recipeLiked likeCount: (makcipeAPIint) likeCount ingredient: (NSMutableArray *) ingredient;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -215,10 +180,22 @@ typedef int32_t makcipeAPIint;
 - (BOOL) recipeCommentIsSet;
 
 #if !__has_feature(objc_arc)
-- (makcipeAPIRecipeInfo *) recipeInfo;
-- (void) setRecipeInfo: (makcipeAPIRecipeInfo *) recipeInfo;
+- (makcipeAPIint) calories;
+- (void) setCalories: (makcipeAPIint) calories;
 #endif
-- (BOOL) recipeInfoIsSet;
+- (BOOL) caloriesIsSet;
+
+#if !__has_feature(objc_arc)
+- (int) level;
+- (void) setLevel: (int) level;
+#endif
+- (BOOL) levelIsSet;
+
+#if !__has_feature(objc_arc)
+- (makcipeAPIint) cookTime;
+- (void) setCookTime: (makcipeAPIint) cookTime;
+#endif
+- (BOOL) cookTimeIsSet;
 
 #if !__has_feature(objc_arc)
 - (BOOL) recipeLiked;
@@ -227,10 +204,16 @@ typedef int32_t makcipeAPIint;
 - (BOOL) recipeLikedIsSet;
 
 #if !__has_feature(objc_arc)
-- (int) recipeType;
-- (void) setRecipeType: (int) recipeType;
+- (makcipeAPIint) likeCount;
+- (void) setLikeCount: (makcipeAPIint) likeCount;
 #endif
-- (BOOL) recipeTypeIsSet;
+- (BOOL) likeCountIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSMutableArray *) ingredient;
+- (void) setIngredient: (NSMutableArray *) ingredient;
+#endif
+- (BOOL) ingredientIsSet;
 
 @end
 

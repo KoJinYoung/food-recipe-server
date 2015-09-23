@@ -8,8 +8,8 @@ var config = require('./config')
 transport = thrift.TBufferedTransport
 protocol = thrift.TBinaryProtocol
 
-//var host = 'localhost'
-var host = config.host
+var host = 'localhost'
+//var host = config.host
 var port = config.port
 
 
@@ -24,19 +24,19 @@ var connection = thrift.createConnection(host, port, {
 	var mp = new thrift.Multiplexer()
 	var recipeAPIClient = mp.createClient("RecipeAPI", RecipeAPI, connection)
 	var userAPIClient = mp.createClient("UserAPI", UserAPI, connection)
+	console.log('client running....')
 
+        recipeAPIClient.getAll("student",  function(err,response){
+                console.log('in client getall')
+                console.log(response)
+                //connection.end()
+        })
 
 	recipeAPIClient.make_All_Recipe_list(function(err,response){
 		console.log('in client marl')
 		console.log(response)	
 		connection.end()
 	})
-	
-	//recipeAPIClient.getAll("student",  function(err,response){
-	//	console.log('in client getall')
-	//	console.log(response)
-	//	connection.end()
-	//})
 	
 	// userAPIClient.getUserInfo('1', function(err, response) {
 	// 	console.log(response)

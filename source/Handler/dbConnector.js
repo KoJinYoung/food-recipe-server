@@ -13,11 +13,6 @@ exports.connect = function() {
 	}
 }
 
-exports.tokenCheckQuery = function(token) {
-	return 'SELECT USER_u_id as u_id FROM TOKEN WHERE token = "' + token + '";'
-}
-
-
 var UNKOWN_TOKEN = 'Unknown Token'
 exports.UNKOWN_TOKEN = UNKOWN_TOKEN
 /**

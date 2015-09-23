@@ -28,12 +28,16 @@ ttypes.RecipeExCode = {
 IngredientInfo = module.exports.IngredientInfo = function(args) {
   this.name = null;
   this.id = null;
+  this.unit = null;
   if (args) {
     if (args.name !== undefined) {
       this.name = args.name;
     }
     if (args.id !== undefined) {
       this.id = args.id;
+    }
+    if (args.unit !== undefined) {
+      this.unit = args.unit;
     }
   }
 };
@@ -65,6 +69,13 @@ IngredientInfo.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 3:
+      if (ftype == Thrift.Type.STRING) {
+        this.unit = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -86,125 +97,9 @@ IngredientInfo.prototype.write = function(output) {
     output.writeString(this.id);
     output.writeFieldEnd();
   }
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
-};
-
-RecipeInfo = module.exports.RecipeInfo = function(args) {
-  this.calories = null;
-  this.level = null;
-  this.cookTime = null;
-  this.ingredient = null;
-  if (args) {
-    if (args.calories !== undefined) {
-      this.calories = args.calories;
-    }
-    if (args.level !== undefined) {
-      this.level = args.level;
-    }
-    if (args.cookTime !== undefined) {
-      this.cookTime = args.cookTime;
-    }
-    if (args.ingredient !== undefined) {
-      this.ingredient = args.ingredient;
-    }
-  }
-};
-RecipeInfo.prototype = {};
-RecipeInfo.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true)
-  {
-    var ret = input.readFieldBegin();
-    var fname = ret.fname;
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 1:
-      if (ftype == Thrift.Type.I32) {
-        this.calories = input.readI32();
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 2:
-      if (ftype == Thrift.Type.I32) {
-        this.level = input.readI32();
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 3:
-      if (ftype == Thrift.Type.I32) {
-        this.cookTime = input.readI32();
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 4:
-      if (ftype == Thrift.Type.LIST) {
-        var _size0 = 0;
-        var _rtmp34;
-        this.ingredient = [];
-        var _etype3 = 0;
-        _rtmp34 = input.readListBegin();
-        _etype3 = _rtmp34.etype;
-        _size0 = _rtmp34.size;
-        for (var _i5 = 0; _i5 < _size0; ++_i5)
-        {
-          var elem6 = null;
-          elem6 = new ttypes.IngredientInfo();
-          elem6.read(input);
-          this.ingredient.push(elem6);
-        }
-        input.readListEnd();
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      default:
-        input.skip(ftype);
-    }
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
-};
-
-RecipeInfo.prototype.write = function(output) {
-  output.writeStructBegin('RecipeInfo');
-  if (this.calories !== null && this.calories !== undefined) {
-    output.writeFieldBegin('calories', Thrift.Type.I32, 1);
-    output.writeI32(this.calories);
-    output.writeFieldEnd();
-  }
-  if (this.level !== null && this.level !== undefined) {
-    output.writeFieldBegin('level', Thrift.Type.I32, 2);
-    output.writeI32(this.level);
-    output.writeFieldEnd();
-  }
-  if (this.cookTime !== null && this.cookTime !== undefined) {
-    output.writeFieldBegin('cookTime', Thrift.Type.I32, 3);
-    output.writeI32(this.cookTime);
-    output.writeFieldEnd();
-  }
-  if (this.ingredient !== null && this.ingredient !== undefined) {
-    output.writeFieldBegin('ingredient', Thrift.Type.LIST, 4);
-    output.writeListBegin(Thrift.Type.STRUCT, this.ingredient.length);
-    for (var iter7 in this.ingredient)
-    {
-      if (this.ingredient.hasOwnProperty(iter7))
-      {
-        iter7 = this.ingredient[iter7];
-        iter7.write(output);
-      }
-    }
-    output.writeListEnd();
+  if (this.unit !== null && this.unit !== undefined) {
+    output.writeFieldBegin('unit', Thrift.Type.STRING, 3);
+    output.writeString(this.unit);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -220,9 +115,12 @@ Recipe = module.exports.Recipe = function(args) {
   this.recipeName = null;
   this.recipePic = null;
   this.recipeComment = null;
-  this.recipeInfo = null;
+  this.calories = null;
+  this.level = null;
+  this.cookTime = null;
   this.recipeLiked = null;
-  this.recipeType = null;
+  this.likeCount = null;
+  this.ingredient = null;
   if (args) {
     if (args.recipeId !== undefined) {
       this.recipeId = args.recipeId;
@@ -245,14 +143,23 @@ Recipe = module.exports.Recipe = function(args) {
     if (args.recipeComment !== undefined) {
       this.recipeComment = args.recipeComment;
     }
-    if (args.recipeInfo !== undefined) {
-      this.recipeInfo = args.recipeInfo;
+    if (args.calories !== undefined) {
+      this.calories = args.calories;
+    }
+    if (args.level !== undefined) {
+      this.level = args.level;
+    }
+    if (args.cookTime !== undefined) {
+      this.cookTime = args.cookTime;
     }
     if (args.recipeLiked !== undefined) {
       this.recipeLiked = args.recipeLiked;
     }
-    if (args.recipeType !== undefined) {
-      this.recipeType = args.recipeType;
+    if (args.likeCount !== undefined) {
+      this.likeCount = args.likeCount;
+    }
+    if (args.ingredient !== undefined) {
+      this.ingredient = args.ingredient;
     }
   }
 };
@@ -320,23 +227,57 @@ Recipe.prototype.read = function(input) {
       }
       break;
       case 8:
-      if (ftype == Thrift.Type.STRUCT) {
-        this.recipeInfo = new ttypes.RecipeInfo();
-        this.recipeInfo.read(input);
+      if (ftype == Thrift.Type.I32) {
+        this.calories = input.readI32();
       } else {
         input.skip(ftype);
       }
       break;
       case 9:
-      if (ftype == Thrift.Type.BOOL) {
-        this.recipeLiked = input.readBool();
+      if (ftype == Thrift.Type.I32) {
+        this.level = input.readI32();
       } else {
         input.skip(ftype);
       }
       break;
       case 10:
       if (ftype == Thrift.Type.I32) {
-        this.recipeType = input.readI32();
+        this.cookTime = input.readI32();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 11:
+      if (ftype == Thrift.Type.BOOL) {
+        this.recipeLiked = input.readBool();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 12:
+      if (ftype == Thrift.Type.I32) {
+        this.likeCount = input.readI32();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 13:
+      if (ftype == Thrift.Type.LIST) {
+        var _size0 = 0;
+        var _rtmp34;
+        this.ingredient = [];
+        var _etype3 = 0;
+        _rtmp34 = input.readListBegin();
+        _etype3 = _rtmp34.etype;
+        _size0 = _rtmp34.size;
+        for (var _i5 = 0; _i5 < _size0; ++_i5)
+        {
+          var elem6 = null;
+          elem6 = new ttypes.IngredientInfo();
+          elem6.read(input);
+          this.ingredient.push(elem6);
+        }
+        input.readListEnd();
       } else {
         input.skip(ftype);
       }
@@ -387,19 +328,43 @@ Recipe.prototype.write = function(output) {
     output.writeString(this.recipeComment);
     output.writeFieldEnd();
   }
-  if (this.recipeInfo !== null && this.recipeInfo !== undefined) {
-    output.writeFieldBegin('recipeInfo', Thrift.Type.STRUCT, 8);
-    this.recipeInfo.write(output);
+  if (this.calories !== null && this.calories !== undefined) {
+    output.writeFieldBegin('calories', Thrift.Type.I32, 8);
+    output.writeI32(this.calories);
+    output.writeFieldEnd();
+  }
+  if (this.level !== null && this.level !== undefined) {
+    output.writeFieldBegin('level', Thrift.Type.I32, 9);
+    output.writeI32(this.level);
+    output.writeFieldEnd();
+  }
+  if (this.cookTime !== null && this.cookTime !== undefined) {
+    output.writeFieldBegin('cookTime', Thrift.Type.I32, 10);
+    output.writeI32(this.cookTime);
     output.writeFieldEnd();
   }
   if (this.recipeLiked !== null && this.recipeLiked !== undefined) {
-    output.writeFieldBegin('recipeLiked', Thrift.Type.BOOL, 9);
+    output.writeFieldBegin('recipeLiked', Thrift.Type.BOOL, 11);
     output.writeBool(this.recipeLiked);
     output.writeFieldEnd();
   }
-  if (this.recipeType !== null && this.recipeType !== undefined) {
-    output.writeFieldBegin('recipeType', Thrift.Type.I32, 10);
-    output.writeI32(this.recipeType);
+  if (this.likeCount !== null && this.likeCount !== undefined) {
+    output.writeFieldBegin('likeCount', Thrift.Type.I32, 12);
+    output.writeI32(this.likeCount);
+    output.writeFieldEnd();
+  }
+  if (this.ingredient !== null && this.ingredient !== undefined) {
+    output.writeFieldBegin('ingredient', Thrift.Type.LIST, 13);
+    output.writeListBegin(Thrift.Type.STRUCT, this.ingredient.length);
+    for (var iter7 in this.ingredient)
+    {
+      if (this.ingredient.hasOwnProperty(iter7))
+      {
+        iter7 = this.ingredient[iter7];
+        iter7.write(output);
+      }
+    }
+    output.writeListEnd();
     output.writeFieldEnd();
   }
   output.writeFieldStop();

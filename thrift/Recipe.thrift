@@ -23,13 +23,7 @@ enum LEVEL{
 struct IngredientInfo{
         1:      optional string name;
         2:      optional string id;
-}
-
-struct RecipeInfo{
-	1: 	optional int calories;
-	2: 	optional LEVEL level;
-	3:	optional int cookTime;
-	4:	optional list<IngredientInfo>	ingredient;
+	3:	optional string unit;
 }
 
 struct Recipe{
@@ -40,9 +34,12 @@ struct Recipe{
 	5:	optional string recipeName;
 	6:	optional string recipePic;
 	7:	optional string	recipeComment;
-	8:	optional RecipeInfo	recipeInfo;
-	9:	optional bool recipeLiked;
-	10:	optional RECIPETYPE	recipeType;
+	8:	optional int calories;
+	9:	optional LEVEL level;
+	10:	optional int cookTime;
+	11:	optional bool recipeLiked;
+	12:	optional int likeCount;
+        13:     optional list<IngredientInfo>   ingredient;
 }	
 
 enum RecipeExCode{
