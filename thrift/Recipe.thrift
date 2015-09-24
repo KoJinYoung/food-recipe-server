@@ -9,9 +9,9 @@ typedef i64 long
 typedef i32 int
 
 enum RECIPETYPE{
-	NONE = 0,
-	RECOMM = 1,
-	SUBSC = 2,
+	NONE = 1,
+	RECOMM = 2,
+	SUBSC = 3,
 }
 
 enum LEVEL{

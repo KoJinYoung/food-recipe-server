@@ -432,10 +432,10 @@ RecipeAPI_make_Subc_Recipe_list_result.prototype.write = function(output) {
 };
 
 RecipeAPI_make_norm_Recipe_list_args = function(args) {
-  this.r_id = null;
+  this.idx = null;
   if (args) {
-    if (args.r_id !== undefined) {
-      this.r_id = args.r_id;
+    if (args.idx !== undefined) {
+      this.idx = args.idx;
     }
   }
 };
@@ -454,8 +454,8 @@ RecipeAPI_make_norm_Recipe_list_args.prototype.read = function(input) {
     switch (fid)
     {
       case 1:
-      if (ftype == Thrift.Type.STRING) {
-        this.r_id = input.readString();
+      if (ftype == Thrift.Type.I32) {
+        this.idx = input.readI32();
       } else {
         input.skip(ftype);
       }
@@ -474,9 +474,9 @@ RecipeAPI_make_norm_Recipe_list_args.prototype.read = function(input) {
 
 RecipeAPI_make_norm_Recipe_list_args.prototype.write = function(output) {
   output.writeStructBegin('RecipeAPI_make_norm_Recipe_list_args');
-  if (this.r_id !== null && this.r_id !== undefined) {
-    output.writeFieldBegin('r_id', Thrift.Type.STRING, 1);
-    output.writeString(this.r_id);
+  if (this.idx !== null && this.idx !== undefined) {
+    output.writeFieldBegin('idx', Thrift.Type.I32, 1);
+    output.writeI32(this.idx);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -754,7 +754,7 @@ RecipeAPIClient.prototype.recv_make_Subc_Recipe_list = function(input,mtype,rseq
   }
   return callback('make_Subc_Recipe_list failed: unknown result');
 };
-RecipeAPIClient.prototype.make_norm_Recipe_list = function(r_id, callback) {
+RecipeAPIClient.prototype.make_norm_Recipe_list = function(idx, callback) {
   this._seqid = this.new_seqid();
   if (callback === undefined) {
     var _defer = Q.defer();
@@ -765,19 +765,19 @@ RecipeAPIClient.prototype.make_norm_Recipe_list = function(r_id, callback) {
         _defer.resolve(result);
       }
     };
-    this.send_make_norm_Recipe_list(r_id);
+    this.send_make_norm_Recipe_list(idx);
     return _defer.promise;
   } else {
     this._reqs[this.seqid()] = callback;
-    this.send_make_norm_Recipe_list(r_id);
+    this.send_make_norm_Recipe_list(idx);
   }
 };
 
-RecipeAPIClient.prototype.send_make_norm_Recipe_list = function(r_id) {
+RecipeAPIClient.prototype.send_make_norm_Recipe_list = function(idx) {
   var output = new this.pClass(this.output);
   output.writeMessageBegin('make_norm_Recipe_list', Thrift.MessageType.CALL, this.seqid());
   var args = new RecipeAPI_make_norm_Recipe_list_args();
-  args.r_id = r_id;
+  args.idx = idx;
   args.write(output);
   output.writeMessageEnd();
   return this.output.flush();
@@ -944,7 +944,7 @@ RecipeAPIProcessor.prototype.process_make_norm_Recipe_list = function(seqid, inp
   args.read(input);
   input.readMessageEnd();
   if (this._handler.make_norm_Recipe_list.length === 1) {
-    Q.fcall(this._handler.make_norm_Recipe_list, args.r_id)
+    Q.fcall(this._handler.make_norm_Recipe_list, args.idx)
       .then(function(result) {
         var result = new RecipeAPI_make_norm_Recipe_list_result({success: result});
         output.writeMessageBegin("make_norm_Recipe_list", Thrift.MessageType.REPLY, seqid);
@@ -959,7 +959,7 @@ RecipeAPIProcessor.prototype.process_make_norm_Recipe_list = function(seqid, inp
         output.flush();
       });
   } else {
-    this._handler.make_norm_Recipe_list(args.r_id,  function (err, result) {
+    this._handler.make_norm_Recipe_list(args.idx,  function (err, result) {
       var result = new RecipeAPI_make_norm_Recipe_list_result((err != null ? err : {success: result}));
       output.writeMessageBegin("make_norm_Recipe_list", Thrift.MessageType.REPLY, seqid);
       result.write(output);

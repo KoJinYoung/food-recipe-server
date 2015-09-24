@@ -12,9 +12,9 @@ import java.util.HashMap;
 import org.apache.thrift.TEnum;
 
 public enum RECIPETYPE implements org.apache.thrift.TEnum {
-  NONE(0),
-  RECOMM(1),
-  SUBSC(2);
+  NONE(1),
+  RECOMM(2),
+  SUBSC(3);
 
   private final int value;
 
@@ -35,11 +35,11 @@ public enum RECIPETYPE implements org.apache.thrift.TEnum {
    */
   public static RECIPETYPE findByValue(int value) { 
     switch (value) {
-      case 0:
-        return NONE;
       case 1:
-        return RECOMM;
+        return NONE;
       case 2:
+        return RECOMM;
+      case 3:
         return SUBSC;
       default:
         return null;

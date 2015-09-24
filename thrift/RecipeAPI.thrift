@@ -20,6 +20,6 @@ service RecipeAPI{
  	list<Recipe.Recipe>	make_All_Recipe_list();
 	list<Recipe.Recipe> 	make_Recc_Recipe_list();
 	list<Recipe.Recipe>	make_Subc_Recipe_list();
-	list<Recipe.Recipe>	make_norm_Recipe_list(1: string r_id);
+	list<Recipe.Recipe>	make_norm_Recipe_list(1: i32 idx);
 
 }

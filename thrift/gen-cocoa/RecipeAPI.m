@@ -1051,17 +1051,17 @@
 @end
 
 @interface makcipeAPImake_norm_Recipe_list_args : NSObject <TBase, NSCoding> {
-  NSString * __r_id;
+  int32_t __idx;
 
-  BOOL __r_id_isset;
+  BOOL __idx_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@property (nonatomic, retain, getter=r_id, setter=setR_id:) NSString * r_id;
+@property (nonatomic, getter=idx, setter=setIdx:) int32_t idx;
 #endif
 
 - (id) init;
-- (id) initWithR_id: (NSString *) r_id;
+- (id) initWithIdx: (int32_t) idx;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -1069,10 +1069,10 @@
 - (void) validate;
 
 #if !__has_feature(objc_arc)
-- (NSString *) r_id;
-- (void) setR_id: (NSString *) r_id;
+- (int32_t) idx;
+- (void) setIdx: (int32_t) idx;
 #endif
-- (BOOL) r_idIsSet;
+- (BOOL) idxIsSet;
 
 @end
 
@@ -1086,58 +1086,53 @@
   return self;
 }
 
-- (id) initWithR_id: (NSString *) r_id
+- (id) initWithIdx: (int32_t) idx
 {
   self = [super init];
-  __r_id = [r_id retain_stub];
-  __r_id_isset = YES;
+  __idx = idx;
+  __idx_isset = YES;
   return self;
 }
 
 - (id) initWithCoder: (NSCoder *) decoder
 {
   self = [super init];
-  if ([decoder containsValueForKey: @"r_id"])
+  if ([decoder containsValueForKey: @"idx"])
   {
-    __r_id = [[decoder decodeObjectForKey: @"r_id"] retain_stub];
-    __r_id_isset = YES;
+    __idx = [decoder decodeInt32ForKey: @"idx"];
+    __idx_isset = YES;
   }
   return self;
 }
 
 - (void) encodeWithCoder: (NSCoder *) encoder
 {
-  if (__r_id_isset)
+  if (__idx_isset)
   {
-    [encoder encodeObject: __r_id forKey: @"r_id"];
+    [encoder encodeInt32: __idx forKey: @"idx"];
   }
 }
 
 - (void) dealloc
 {
-  [__r_id release_stub];
   [super dealloc_stub];
 }
 
-- (NSString *) r_id {
-  return [[__r_id retain_stub] autorelease_stub];
+- (int32_t) idx {
+  return __idx;
 }
 
-- (void) setR_id: (NSString *) r_id {
-  [r_id retain_stub];
-  [__r_id release_stub];
-  __r_id = r_id;
-  __r_id_isset = YES;
+- (void) setIdx: (int32_t) idx {
+  __idx = idx;
+  __idx_isset = YES;
 }
 
-- (BOOL) r_idIsSet {
-  return __r_id_isset;
+- (BOOL) idxIsSet {
+  return __idx_isset;
 }
 
-- (void) unsetR_id {
-  [__r_id release_stub];
-  __r_id = nil;
-  __r_id_isset = NO;
+- (void) unsetIdx {
+  __idx_isset = NO;
 }
 
 - (void) read: (id <TProtocol>) inProtocol
@@ -1156,9 +1151,9 @@
     switch (fieldID)
     {
       case 1:
-        if (fieldType == TType_STRING) {
-          NSString * fieldValue = [inProtocol readString];
-          [self setR_id: fieldValue];
+        if (fieldType == TType_I32) {
+          int32_t fieldValue = [inProtocol readI32];
+          [self setIdx: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
@@ -1174,12 +1169,10 @@
 
 - (void) write: (id <TProtocol>) outProtocol {
   [outProtocol writeStructBeginWithName: @"make_norm_Recipe_list_args"];
-  if (__r_id_isset) {
-    if (__r_id != nil) {
-      [outProtocol writeFieldBeginWithName: @"r_id" type: TType_STRING fieldID: 1];
-      [outProtocol writeString: __r_id];
-      [outProtocol writeFieldEnd];
-    }
+  if (__idx_isset) {
+    [outProtocol writeFieldBeginWithName: @"idx" type: TType_I32 fieldID: 1];
+    [outProtocol writeI32: __idx];
+    [outProtocol writeFieldEnd];
   }
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
@@ -1191,8 +1184,8 @@
 
 - (NSString *) description {
   NSMutableString * ms = [NSMutableString stringWithString: @"makcipeAPImake_norm_Recipe_list_args("];
-  [ms appendString: @"r_id:"];
-  [ms appendFormat: @"\"%@\"", __r_id];
+  [ms appendString: @"idx:"];
+  [ms appendFormat: @"%i", __idx];
   [ms appendString: @")"];
   return [NSString stringWithString: ms];
 }
@@ -1535,15 +1528,13 @@
   return [self recv_make_Subc_Recipe_list];
 }
 
-- (void) send_make_norm_Recipe_list: (NSString *) r_id
+- (void) send_make_norm_Recipe_list: (int32_t) idx
 {
   [outProtocol writeMessageBeginWithName: @"make_norm_Recipe_list" type: TMessageType_CALL sequenceID: 0];
   [outProtocol writeStructBeginWithName: @"make_norm_Recipe_list_args"];
-  if (r_id != nil)  {
-    [outProtocol writeFieldBeginWithName: @"r_id" type: TType_STRING fieldID: 1];
-    [outProtocol writeString: r_id];
-    [outProtocol writeFieldEnd];
-  }
+  [outProtocol writeFieldBeginWithName: @"idx" type: TType_I32 fieldID: 1];
+  [outProtocol writeI32: idx];
+  [outProtocol writeFieldEnd];
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
   [outProtocol writeMessageEnd];
@@ -1569,9 +1560,9 @@
                                            reason: @"make_norm_Recipe_list failed: unknown result"];
 }
 
-- (NSMutableArray *) make_norm_Recipe_list: (NSString *) r_id
+- (NSMutableArray *) make_norm_Recipe_list: (int32_t) idx
 {
-  [self send_make_norm_Recipe_list : r_id];
+  [self send_make_norm_Recipe_list : idx];
   return [self recv_make_norm_Recipe_list];
 }
 
@@ -1742,7 +1733,7 @@
   [args read: inProtocol];
   [inProtocol readMessageEnd];
   makcipeAPIMake_norm_Recipe_list_result * result = [[makcipeAPIMake_norm_Recipe_list_result alloc] init];
-  [result setSuccess: [mService make_norm_Recipe_list: [args r_id]]];
+  [result setSuccess: [mService make_norm_Recipe_list: [args idx]]];
   [outProtocol writeMessageBeginWithName: @"make_norm_Recipe_list"
                                     type: TMessageType_REPLY
                               sequenceID: seqID];
