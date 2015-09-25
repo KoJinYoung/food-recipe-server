@@ -68,10 +68,9 @@ UserInfo 변경 - 가입 상태 WITHDREW(탈퇴) 추가 및 가입 상태 적용
 RecipeAPI 추가 - 전체 레시피 리스트, 일반 레시피 리스트 만들기
  - make_All_Recipe_list() - 전체 레시피 리스트를 반환합니다
  - make_norm_Recipe_list(int idx) - 시작 위치(idx) 부터 일정 갯수(PAGING_SIZE)의 레시피 리스트를 반환합니다
-  - PAGING_SIZE는 /source/Handler/dbConnector 에 정의되어 있으며 현재 2로 설정해 놓았습니다
+  - PAGING_SIZE는 /source/Handler/dbConnector 에 정의되어 있으며 현재 4로 설정해 놓았습니다
 
 RecipeAPI 추가 필요 - 추천 레시피, 구독 레시피
-일반 레시피 리스트의 시작위치에 대해 논의가 필요할 듯 합니다
 
  =============================================
 

@@ -143,7 +143,6 @@ var recipeAPIHandler = {
 
                 if(mysql){
 
-			if(RECIPE_COUNT>idx){
 			query = RECIPE_QUERY + ' LIMIT ' + idx + ', ' + PAGING_SIZE
 
                         mysql.query(query, function(err, res){
@@ -173,10 +172,6 @@ var recipeAPIHandler = {
                                         callback(null, resList)
                                 }
                         })
-
-			}else{
-				callback(null, null)
-			}
                 }else{
                         callback(null, null)
 
