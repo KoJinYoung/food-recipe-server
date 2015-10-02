@@ -5,9 +5,6 @@ namespace cocoa makcipeAPI
 //
 // define c style integer
 
-typedef i64 long
-typedef i32 int
-
 enum SIGNUP_STATUS {
 	SIGNUP = 1,
 	CERTIFICATED = 2,
@@ -33,16 +30,16 @@ enum AUTH_METHOD {
  * @param following. The number of following who.
  */
 struct User{
-	1:	optional int 			uid;
+	1:	optional i32 			uid;
 	2:	optional string			token;
 	3:	optional string			username;
-	4:	optional int 			auth_method;
+	4:	optional i32 			auth_method;
 	5:	optional string 		facebookId;
 	6:	optional string 		kakaoId;
 	7:	optional string 		email;
 	8:	optional string			pic;
-	9:	optional int			follower;
-	10:	optional int 			following;
+	9:	optional i32			follower;
+	10:	optional i32 			following;
 	11:	optional SIGNUP_STATUS	signup_status;
 }	
 

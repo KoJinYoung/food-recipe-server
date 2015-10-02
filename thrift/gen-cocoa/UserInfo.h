@@ -35,21 +35,17 @@ enum makcipeAPIUserExCode {
   UserExCode_DATA_EXISTS = 3
 };
 
-typedef int64_t makcipeAPIlong;
-
-typedef int32_t makcipeAPIint;
-
 @interface makcipeAPIUser : NSObject <TBase, NSCoding> {
-  makcipeAPIint __uid;
+  int32_t __uid;
   NSString * __token;
   NSString * __username;
-  makcipeAPIint __auth_method;
+  int32_t __auth_method;
   NSString * __facebookId;
   NSString * __kakaoId;
   NSString * __email;
   NSString * __pic;
-  makcipeAPIint __follower;
-  makcipeAPIint __following;
+  int32_t __follower;
+  int32_t __following;
   int __signup_status;
 
   BOOL __uid_isset;
@@ -66,21 +62,21 @@ typedef int32_t makcipeAPIint;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@property (nonatomic, getter=uid, setter=setUid:) makcipeAPIint uid;
+@property (nonatomic, getter=uid, setter=setUid:) int32_t uid;
 @property (nonatomic, retain, getter=token, setter=setToken:) NSString * token;
 @property (nonatomic, retain, getter=username, setter=setUsername:) NSString * username;
-@property (nonatomic, getter=auth_method, setter=setAuth_method:) makcipeAPIint auth_method;
+@property (nonatomic, getter=auth_method, setter=setAuth_method:) int32_t auth_method;
 @property (nonatomic, retain, getter=facebookId, setter=setFacebookId:) NSString * facebookId;
 @property (nonatomic, retain, getter=kakaoId, setter=setKakaoId:) NSString * kakaoId;
 @property (nonatomic, retain, getter=email, setter=setEmail:) NSString * email;
 @property (nonatomic, retain, getter=pic, setter=setPic:) NSString * pic;
-@property (nonatomic, getter=follower, setter=setFollower:) makcipeAPIint follower;
-@property (nonatomic, getter=following, setter=setFollowing:) makcipeAPIint following;
+@property (nonatomic, getter=follower, setter=setFollower:) int32_t follower;
+@property (nonatomic, getter=following, setter=setFollowing:) int32_t following;
 @property (nonatomic, getter=signup_status, setter=setSignup_status:) int signup_status;
 #endif
 
 - (id) init;
-- (id) initWithUid: (makcipeAPIint) uid token: (NSString *) token username: (NSString *) username auth_method: (makcipeAPIint) auth_method facebookId: (NSString *) facebookId kakaoId: (NSString *) kakaoId email: (NSString *) email pic: (NSString *) pic follower: (makcipeAPIint) follower following: (makcipeAPIint) following signup_status: (int) signup_status;
+- (id) initWithUid: (int32_t) uid token: (NSString *) token username: (NSString *) username auth_method: (int32_t) auth_method facebookId: (NSString *) facebookId kakaoId: (NSString *) kakaoId email: (NSString *) email pic: (NSString *) pic follower: (int32_t) follower following: (int32_t) following signup_status: (int) signup_status;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -88,8 +84,8 @@ typedef int32_t makcipeAPIint;
 - (void) validate;
 
 #if !__has_feature(objc_arc)
-- (makcipeAPIint) uid;
-- (void) setUid: (makcipeAPIint) uid;
+- (int32_t) uid;
+- (void) setUid: (int32_t) uid;
 #endif
 - (BOOL) uidIsSet;
 
@@ -106,8 +102,8 @@ typedef int32_t makcipeAPIint;
 - (BOOL) usernameIsSet;
 
 #if !__has_feature(objc_arc)
-- (makcipeAPIint) auth_method;
-- (void) setAuth_method: (makcipeAPIint) auth_method;
+- (int32_t) auth_method;
+- (void) setAuth_method: (int32_t) auth_method;
 #endif
 - (BOOL) auth_methodIsSet;
 
@@ -136,14 +132,14 @@ typedef int32_t makcipeAPIint;
 - (BOOL) picIsSet;
 
 #if !__has_feature(objc_arc)
-- (makcipeAPIint) follower;
-- (void) setFollower: (makcipeAPIint) follower;
+- (int32_t) follower;
+- (void) setFollower: (int32_t) follower;
 #endif
 - (BOOL) followerIsSet;
 
 #if !__has_feature(objc_arc)
-- (makcipeAPIint) following;
-- (void) setFollowing: (makcipeAPIint) following;
+- (int32_t) following;
+- (void) setFollowing: (int32_t) following;
 #endif
 - (BOOL) followingIsSet;
 

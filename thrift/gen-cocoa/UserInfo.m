@@ -28,7 +28,7 @@
   return self;
 }
 
-- (id) initWithUid: (makcipeAPIint) uid token: (NSString *) token username: (NSString *) username auth_method: (makcipeAPIint) auth_method facebookId: (NSString *) facebookId kakaoId: (NSString *) kakaoId email: (NSString *) email pic: (NSString *) pic follower: (makcipeAPIint) follower following: (makcipeAPIint) following signup_status: (int) signup_status
+- (id) initWithUid: (int32_t) uid token: (NSString *) token username: (NSString *) username auth_method: (int32_t) auth_method facebookId: (NSString *) facebookId kakaoId: (NSString *) kakaoId email: (NSString *) email pic: (NSString *) pic follower: (int32_t) follower following: (int32_t) following signup_status: (int) signup_status
 {
   self = [super init];
   __uid = uid;
