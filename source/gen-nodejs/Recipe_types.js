@@ -10,9 +10,9 @@ var Q = thrift.Q;
 
 var ttypes = module.exports = {};
 ttypes.RECIPETYPE = {
-  'NONE' : 0,
-  'RECOMM' : 1,
-  'SUBSC' : 2
+  'NONE' : 1,
+  'RECOMM' : 2,
+  'SUBSC' : 3
 };
 ttypes.LEVEL = {
   'EASY' : 1,

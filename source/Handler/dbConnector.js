@@ -13,6 +13,9 @@ exports.connect = function() {
 	}
 }
 
+var PAGING_SIZE = 4 
+exports.PAGING_SIZE = PAGING_SIZE
+
 var UNKOWN_TOKEN = 'Unknown Token'
 exports.UNKOWN_TOKEN = UNKOWN_TOKEN
 /**

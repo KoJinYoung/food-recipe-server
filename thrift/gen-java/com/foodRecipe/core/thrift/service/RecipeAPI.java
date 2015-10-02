@@ -47,7 +47,7 @@ public class RecipeAPI {
 
     public List<com.foodRecipe.core.thrift.model.recipe.Recipe> make_Subc_Recipe_list() throws org.apache.thrift.TException;
 
-    public List<com.foodRecipe.core.thrift.model.recipe.Recipe> make_norm_Recipe_list(String r_id) throws org.apache.thrift.TException;
+    public List<com.foodRecipe.core.thrift.model.recipe.Recipe> make_norm_Recipe_list(int idx) throws org.apache.thrift.TException;
 
   }
 
@@ -61,7 +61,7 @@ public class RecipeAPI {
 
     public void make_Subc_Recipe_list(org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
 
-    public void make_norm_Recipe_list(String r_id, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
+    public void make_norm_Recipe_list(int idx, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
 
   }
 
@@ -174,16 +174,16 @@ public class RecipeAPI {
       throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "make_Subc_Recipe_list failed: unknown result");
     }
 
-    public List<com.foodRecipe.core.thrift.model.recipe.Recipe> make_norm_Recipe_list(String r_id) throws org.apache.thrift.TException
+    public List<com.foodRecipe.core.thrift.model.recipe.Recipe> make_norm_Recipe_list(int idx) throws org.apache.thrift.TException
     {
-      send_make_norm_Recipe_list(r_id);
+      send_make_norm_Recipe_list(idx);
       return recv_make_norm_Recipe_list();
     }
 
-    public void send_make_norm_Recipe_list(String r_id) throws org.apache.thrift.TException
+    public void send_make_norm_Recipe_list(int idx) throws org.apache.thrift.TException
     {
       make_norm_Recipe_list_args args = new make_norm_Recipe_list_args();
-      args.setR_id(r_id);
+      args.setIdx(idx);
       sendBase("make_norm_Recipe_list", args);
     }
 
@@ -334,24 +334,24 @@ public class RecipeAPI {
       }
     }
 
-    public void make_norm_Recipe_list(String r_id, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
+    public void make_norm_Recipe_list(int idx, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
       checkReady();
-      make_norm_Recipe_list_call method_call = new make_norm_Recipe_list_call(r_id, resultHandler, this, ___protocolFactory, ___transport);
+      make_norm_Recipe_list_call method_call = new make_norm_Recipe_list_call(idx, resultHandler, this, ___protocolFactory, ___transport);
       this.___currentMethod = method_call;
       ___manager.call(method_call);
     }
 
     public static class make_norm_Recipe_list_call extends org.apache.thrift.async.TAsyncMethodCall {
-      private String r_id;
-      public make_norm_Recipe_list_call(String r_id, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+      private int idx;
+      public make_norm_Recipe_list_call(int idx, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
         super(client, protocolFactory, transport, resultHandler, false);
-        this.r_id = r_id;
+        this.idx = idx;
       }
 
       public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
         prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("make_norm_Recipe_list", org.apache.thrift.protocol.TMessageType.CALL, 0));
         make_norm_Recipe_list_args args = new make_norm_Recipe_list_args();
-        args.setR_id(r_id);
+        args.setIdx(idx);
         args.write(prot);
         prot.writeMessageEnd();
       }
@@ -482,7 +482,7 @@ public class RecipeAPI {
 
       public make_norm_Recipe_list_result getResult(I iface, make_norm_Recipe_list_args args) throws org.apache.thrift.TException {
         make_norm_Recipe_list_result result = new make_norm_Recipe_list_result();
-        result.success = iface.make_norm_Recipe_list(args.r_id);
+        result.success = iface.make_norm_Recipe_list(args.idx);
         return result;
       }
     }
@@ -759,7 +759,7 @@ public class RecipeAPI {
       }
 
       public void start(I iface, make_norm_Recipe_list_args args, org.apache.thrift.async.AsyncMethodCallback<List<com.foodRecipe.core.thrift.model.recipe.Recipe>> resultHandler) throws TException {
-        iface.make_norm_Recipe_list(args.r_id,resultHandler);
+        iface.make_norm_Recipe_list(args.idx,resultHandler);
       }
     }
 
@@ -3479,7 +3479,7 @@ public class RecipeAPI {
   public static class make_norm_Recipe_list_args implements org.apache.thrift.TBase<make_norm_Recipe_list_args, make_norm_Recipe_list_args._Fields>, java.io.Serializable, Cloneable, Comparable<make_norm_Recipe_list_args>   {
     private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("make_norm_Recipe_list_args");
 
-    private static final org.apache.thrift.protocol.TField R_ID_FIELD_DESC = new org.apache.thrift.protocol.TField("r_id", org.apache.thrift.protocol.TType.STRING, (short)1);
+    private static final org.apache.thrift.protocol.TField IDX_FIELD_DESC = new org.apache.thrift.protocol.TField("idx", org.apache.thrift.protocol.TType.I32, (short)1);
 
     private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
     static {
@@ -3487,11 +3487,11 @@ public class RecipeAPI {
       schemes.put(TupleScheme.class, new make_norm_Recipe_list_argsTupleSchemeFactory());
     }
 
-    public String r_id; // required
+    public int idx; // required
 
     /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
     public enum _Fields implements org.apache.thrift.TFieldIdEnum {
-      R_ID((short)1, "r_id");
+      IDX((short)1, "idx");
 
       private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -3506,8 +3506,8 @@ public class RecipeAPI {
        */
       public static _Fields findByThriftId(int fieldId) {
         switch(fieldId) {
-          case 1: // R_ID
-            return R_ID;
+          case 1: // IDX
+            return IDX;
           default:
             return null;
         }
@@ -3548,11 +3548,13 @@ public class RecipeAPI {
     }
 
     // isset id assignments
+    private static final int __IDX_ISSET_ID = 0;
+    private byte __isset_bitfield = 0;
     public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
     static {
       Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-      tmpMap.put(_Fields.R_ID, new org.apache.thrift.meta_data.FieldMetaData("r_id", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+      tmpMap.put(_Fields.IDX, new org.apache.thrift.meta_data.FieldMetaData("idx", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
       metaDataMap = Collections.unmodifiableMap(tmpMap);
       org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(make_norm_Recipe_list_args.class, metaDataMap);
     }
@@ -3561,19 +3563,19 @@ public class RecipeAPI {
     }
 
     public make_norm_Recipe_list_args(
-      String r_id)
+      int idx)
     {
       this();
-      this.r_id = r_id;
+      this.idx = idx;
+      setIdxIsSet(true);
     }
 
     /**
      * Performs a deep copy on <i>other</i>.
      */
     public make_norm_Recipe_list_args(make_norm_Recipe_list_args other) {
-      if (other.isSetR_id()) {
-        this.r_id = other.r_id;
-      }
+      __isset_bitfield = other.__isset_bitfield;
+      this.idx = other.idx;
     }
 
     public make_norm_Recipe_list_args deepCopy() {
@@ -3582,40 +3584,40 @@ public class RecipeAPI {
 
     @Override
     public void clear() {
-      this.r_id = null;
+      setIdxIsSet(false);
+      this.idx = 0;
     }
 
-    public String getR_id() {
-      return this.r_id;
+    public int getIdx() {
+      return this.idx;
     }
 
-    public make_norm_Recipe_list_args setR_id(String r_id) {
-      this.r_id = r_id;
+    public make_norm_Recipe_list_args setIdx(int idx) {
+      this.idx = idx;
+      setIdxIsSet(true);
       return this;
     }
 
-    public void unsetR_id() {
-      this.r_id = null;
+    public void unsetIdx() {
+      __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __IDX_ISSET_ID);
     }
 
-    /** Returns true if field r_id is set (has been assigned a value) and false otherwise */
-    public boolean isSetR_id() {
-      return this.r_id != null;
+    /** Returns true if field idx is set (has been assigned a value) and false otherwise */
+    public boolean isSetIdx() {
+      return EncodingUtils.testBit(__isset_bitfield, __IDX_ISSET_ID);
     }
 
-    public void setR_idIsSet(boolean value) {
-      if (!value) {
-        this.r_id = null;
-      }
+    public void setIdxIsSet(boolean value) {
+      __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __IDX_ISSET_ID, value);
     }
 
     public void setFieldValue(_Fields field, Object value) {
       switch (field) {
-      case R_ID:
+      case IDX:
         if (value == null) {
-          unsetR_id();
+          unsetIdx();
         } else {
-          setR_id((String)value);
+          setIdx((Integer)value);
         }
         break;
 
@@ -3624,8 +3626,8 @@ public class RecipeAPI {
 
     public Object getFieldValue(_Fields field) {
       switch (field) {
-      case R_ID:
-        return getR_id();
+      case IDX:
+        return Integer.valueOf(getIdx());
 
       }
       throw new IllegalStateException();
@@ -3638,8 +3640,8 @@ public class RecipeAPI {
       }
 
       switch (field) {
-      case R_ID:
-        return isSetR_id();
+      case IDX:
+        return isSetIdx();
       }
       throw new IllegalStateException();
     }
@@ -3657,12 +3659,12 @@ public class RecipeAPI {
       if (that == null)
         return false;
 
-      boolean this_present_r_id = true && this.isSetR_id();
-      boolean that_present_r_id = true && that.isSetR_id();
-      if (this_present_r_id || that_present_r_id) {
-        if (!(this_present_r_id && that_present_r_id))
+      boolean this_present_idx = true;
+      boolean that_present_idx = true;
+      if (this_present_idx || that_present_idx) {
+        if (!(this_present_idx && that_present_idx))
           return false;
-        if (!this.r_id.equals(that.r_id))
+        if (this.idx != that.idx)
           return false;
       }
 
@@ -3673,10 +3675,10 @@ public class RecipeAPI {
     public int hashCode() {
       List<Object> list = new ArrayList<Object>();
 
-      boolean present_r_id = true && (isSetR_id());
-      list.add(present_r_id);
-      if (present_r_id)
-        list.add(r_id);
+      boolean present_idx = true;
+      list.add(present_idx);
+      if (present_idx)
+        list.add(idx);
 
       return list.hashCode();
     }
@@ -3689,12 +3691,12 @@ public class RecipeAPI {
 
       int lastComparison = 0;
 
-      lastComparison = Boolean.valueOf(isSetR_id()).compareTo(other.isSetR_id());
+      lastComparison = Boolean.valueOf(isSetIdx()).compareTo(other.isSetIdx());
       if (lastComparison != 0) {
         return lastComparison;
       }
-      if (isSetR_id()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.r_id, other.r_id);
+      if (isSetIdx()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.idx, other.idx);
         if (lastComparison != 0) {
           return lastComparison;
         }
@@ -3719,12 +3721,8 @@ public class RecipeAPI {
       StringBuilder sb = new StringBuilder("make_norm_Recipe_list_args(");
       boolean first = true;
 
-      sb.append("r_id:");
-      if (this.r_id == null) {
-        sb.append("null");
-      } else {
-        sb.append(this.r_id);
-      }
+      sb.append("idx:");
+      sb.append(this.idx);
       first = false;
       sb.append(")");
       return sb.toString();
@@ -3745,6 +3743,8 @@ public class RecipeAPI {
 
     private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
       try {
+        // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
+        __isset_bitfield = 0;
         read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
       } catch (org.apache.thrift.TException te) {
         throw new java.io.IOException(te);
@@ -3769,10 +3769,10 @@ public class RecipeAPI {
             break;
           }
           switch (schemeField.id) {
-            case 1: // R_ID
-              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-                struct.r_id = iprot.readString();
-                struct.setR_idIsSet(true);
+            case 1: // IDX
+              if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
+                struct.idx = iprot.readI32();
+                struct.setIdxIsSet(true);
               } else { 
                 org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
               }
@@ -3792,11 +3792,9 @@ public class RecipeAPI {
         struct.validate();
 
         oprot.writeStructBegin(STRUCT_DESC);
-        if (struct.r_id != null) {
-          oprot.writeFieldBegin(R_ID_FIELD_DESC);
-          oprot.writeString(struct.r_id);
-          oprot.writeFieldEnd();
-        }
+        oprot.writeFieldBegin(IDX_FIELD_DESC);
+        oprot.writeI32(struct.idx);
+        oprot.writeFieldEnd();
         oprot.writeFieldStop();
         oprot.writeStructEnd();
       }
@@ -3815,12 +3813,12 @@ public class RecipeAPI {
       public void write(org.apache.thrift.protocol.TProtocol prot, make_norm_Recipe_list_args struct) throws org.apache.thrift.TException {
         TTupleProtocol oprot = (TTupleProtocol) prot;
         BitSet optionals = new BitSet();
-        if (struct.isSetR_id()) {
+        if (struct.isSetIdx()) {
           optionals.set(0);
         }
         oprot.writeBitSet(optionals, 1);
-        if (struct.isSetR_id()) {
-          oprot.writeString(struct.r_id);
+        if (struct.isSetIdx()) {
+          oprot.writeI32(struct.idx);
         }
       }
 
@@ -3829,8 +3827,8 @@ public class RecipeAPI {
         TTupleProtocol iprot = (TTupleProtocol) prot;
         BitSet incoming = iprot.readBitSet(1);
         if (incoming.get(0)) {
-          struct.r_id = iprot.readString();
-          struct.setR_idIsSet(true);
+          struct.idx = iprot.readI32();
+          struct.setIdxIsSet(true);
         }
       }
     }

@@ -32,11 +32,26 @@ var connection = thrift.createConnection(host, port, {
                 //connection.end()
         })
 
-	recipeAPIClient.make_All_Recipe_list(function(err,response){
-		console.log('in client marl')
-		console.log(response)	
-		connection.end()
+	//recipeAPIClient.make_All_Recipe_list(function(err,response){
+	//	console.log('in client marl')
+	//	console.log(response)	
+	//	connection.end()
+	//})
+
+	
+	recipeAPIClient.make_norm_Recipe_list(0, function(err, response){
+		console.log('in client mnrl')
+		console.log(response)
 	})
+	recipeAPIClient.make_norm_Recipe_list(4, function(err, response){
+		console.log('in client mnrl')
+		console.log(response)
+	})
+	recipeAPIClient.make_norm_Recipe_list(8, function(err, response){
+                console.log('in client mnrl')
+                console.log(response)
+        })
+
 	
 	// userAPIClient.getUserInfo('1', function(err, response) {
 	// 	console.log(response)
